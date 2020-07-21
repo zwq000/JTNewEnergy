@@ -21,7 +21,7 @@ namespace JTNE.Protocol.Test {
             JTNEHeaderPackage jTNEHeaderPackage = new JTNEHeaderPackage ();
             jTNEHeaderPackage.VIN = "123456789";
             jTNEHeaderPackage.AskId = JTNEAskId.CMD.ToByteValue ();
-            jTNEHeaderPackage.MsgId = JTNEMsgId.login.ToByteValue ();
+            jTNEHeaderPackage.MsgId = JTNEMsgId.Login.ToByteValue ();
             JTNE_0x01 jTNE_0X01 = new JTNE_0x01 ();
             jTNE_0X01.PDATime = DateTime.Parse ("2019-01-22 23:55:56");
             jTNE_0X01.LoginNum = 1;
@@ -42,7 +42,7 @@ namespace JTNE.Protocol.Test {
             var data = "232301FE313233343536373839000000000000000001002A130116173738000131323334353637383939383736353433323130300304313233343435363739383730FD".ToHexBytes ();
             JTNEHeaderPackage jTNEHeaderPackage = JTNESerializer.Deserialize<JTNEHeaderPackage> (data);
             Assert.Equal (JTNEAskId.CMD.ToByteValue (), jTNEHeaderPackage.AskId);
-            Assert.Equal (JTNEMsgId.login.ToByteValue (), jTNEHeaderPackage.MsgId);
+            Assert.Equal (JTNEMsgId.Login.ToByteValue (), jTNEHeaderPackage.MsgId);
             Assert.Equal ("123456789", jTNEHeaderPackage.VIN);
             JTNE_0x01 jTNE_0X01 = JTNESerializer.Deserialize<JTNE_0x01> (jTNEHeaderPackage.Bodies);
             Assert.Equal (DateTime.Parse ("2019-01-22 23:55:56"), jTNE_0X01.PDATime);
@@ -60,8 +60,8 @@ namespace JTNE.Protocol.Test {
             JTNEGlobalConfigs.Instance.Encoding = Encoding.GetEncoding ("GB18030");
             var data = "23 23 05 FE 30 30 30 30 30 30 30 30 30 30 30 30 30 32 31 31 31 01 00 29 14 07 14 13 26 22 00 01 CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB B3 B5 C1 AA CD F2 01 02 01 A1".ToHexBytes ();
             var package = JTNESerializer.Deserialize (data);
-            Assert.Equal (JTNEAskId.CMD.ToByteValue (), package.AskId);
-            Assert.Equal (JTNEMsgId.platformlogin.ToByteValue (), package.MsgId);
+            Assert.Equal (JTNEAskId.CMD, package.AskId);
+            Assert.Equal (JTNEMsgId.PlatformLogin, package.MsgId);
             Assert.Equal (41, package.DataUnitLength);
             Assert.NotNull (package.Bodies);
 
@@ -74,6 +74,30 @@ namespace JTNE.Protocol.Test {
             Assert.Equal (1, loginbody.LoginNum);
             Assert.Equal (JTNEEncryptMethod.None, loginbody.EncryptMethod);
 
+        }
+
+        [Fact]
+        public void TestGenerateReply(){
+            JTNEGlobalConfigs.Instance.Encoding = Encoding.GetEncoding ("GB18030");
+            var data = "23 23 05 FE 30 30 30 30 30 30 30 30 30 30 30 30 30 32 31 31 31 01 00 29 14 07 14 13 26 22 00 01 CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB B3 B5 C1 AA CD F2 01 02 01 A1".ToHexBytes ();
+            var package = JTNESerializer.Deserialize (data);
+            var reply = package.GenerateReply(JTNEAskId.Success);
+            Assert.NotNull(reply);
+            var bytes = JTNESerializer.Serialize(reply);
+            output.WriteLine(bytes.ToHexString());
+
+        }
+    }
+
+    public static class JTNEReplyExtensions{
+
+        public static JTNEPackage GenerateReply(this JTNEPackage source,JTNEAskId askId){
+            return new JTNEPackage(){
+                MsgId = source.MsgId,
+                AskId = askId,
+                VIN = source.VIN,
+                DataUnitLength = 0
+            };
         }
     }
 }

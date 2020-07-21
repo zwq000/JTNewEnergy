@@ -14,8 +14,8 @@ namespace JTNE.Protocol.Test.Package
         public void Test1()
         {
             JTNEPackage jTNEPackage = new JTNEPackage();
-            jTNEPackage.AskId = JTNEAskId.CMD.ToByteValue();
-            jTNEPackage.MsgId = JTNEMsgId.platformlogout.ToByteValue();
+            jTNEPackage.AskId = JTNEAskId.CMD;
+            jTNEPackage.MsgId = JTNEMsgId.PlatformLogout;
             jTNEPackage.VIN = "123456789";
             JTNE_0x06 jTNE_0X06 = new JTNE_0x06();
             jTNE_0X06.LogoutTime = DateTime.Parse("2019-01-23 23:55:56");
@@ -30,8 +30,8 @@ namespace JTNE.Protocol.Test.Package
         {
             var data = "232306FE31323334353637383900000000000000000100081301171737380001DC".ToHexBytes();
             JTNEPackage jTNEPackage = JTNESerializer.Deserialize(data);
-            Assert.Equal(JTNEAskId.CMD.ToByteValue(), jTNEPackage.AskId);
-            Assert.Equal(JTNEMsgId.platformlogout.ToByteValue(), jTNEPackage.MsgId);
+            Assert.Equal(JTNEAskId.CMD, jTNEPackage.AskId);
+            Assert.Equal(JTNEMsgId.PlatformLogout, jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
             JTNE_0x06 jTNE_0X06 = jTNEPackage.Bodies as JTNE_0x06;
             Assert.Equal(DateTime.Parse("2019-01-23 23:55:56"), jTNE_0X06.LogoutTime);

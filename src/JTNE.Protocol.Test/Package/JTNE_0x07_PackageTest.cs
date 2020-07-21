@@ -14,8 +14,8 @@ namespace JTNE.Protocol.Test.Package
         public void Test1()
         {
             JTNEPackage jTNEPackage = new JTNEPackage();
-            jTNEPackage.AskId = JTNEAskId.CMD.ToByteValue();
-            jTNEPackage.MsgId = JTNEMsgId.heartbeat.ToByteValue();
+            jTNEPackage.AskId = JTNEAskId.CMD;
+            jTNEPackage.MsgId = JTNEMsgId.HeartBeat;
             jTNEPackage.VIN = "123456789";
             var hex = JTNESerializer.Serialize(jTNEPackage).ToHexString();
             Assert.Equal("232307FE3132333435363738390000000000000000010000C9", hex);
@@ -26,8 +26,8 @@ namespace JTNE.Protocol.Test.Package
         {
             var data = "232307FE3132333435363738390000000000000000010000C9".ToHexBytes();
             JTNEPackage jTNEPackage = JTNESerializer.Deserialize(data);
-            Assert.Equal(JTNEAskId.CMD.ToByteValue(), jTNEPackage.AskId);
-            Assert.Equal(JTNEMsgId.heartbeat.ToByteValue(), jTNEPackage.MsgId);
+            Assert.Equal(JTNEAskId.CMD, jTNEPackage.AskId);
+            Assert.Equal(JTNEMsgId.HeartBeat, jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
             Assert.Null(jTNEPackage.Bodies);
         }

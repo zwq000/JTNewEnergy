@@ -15,8 +15,8 @@ namespace JTNE.Protocol.Test.Package
         public void Test1()
         {
             JTNEPackage jTNEPackage = new JTNEPackage();
-            jTNEPackage.AskId = JTNEAskId.Success.ToByteValue();
-            jTNEPackage.MsgId = JTNEMsgId.uploadim.ToByteValue();
+            jTNEPackage.AskId = JTNEAskId.Success;
+            jTNEPackage.MsgId = JTNEMsgId.UploadIM;
             jTNEPackage.VIN = "123456789";
             JTNE_0x02 jTNE_0X02 = new JTNE_0x02();
             jTNE_0X02.Values = new Dictionary<byte, JTNE_0x02_Body>();

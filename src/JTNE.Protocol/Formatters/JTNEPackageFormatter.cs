@@ -26,9 +26,9 @@ namespace JTNE.Protocol.Formatters {
             JTNEPackage jTNEPackage = new JTNEPackage ();
             offset += 2;
             // 3.命令标识
-            jTNEPackage.MsgId = JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
+            jTNEPackage.MsgId = (JTNEMsgId)JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
             // 4.应答标识
-            jTNEPackage.AskId = JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
+            jTNEPackage.AskId = (JTNEAskId)JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
             // 5.VIN
             jTNEPackage.VIN = JTNEBinaryExtensions.ReadStringLittle (bytes, ref offset, 17);
             // 6.数据加密方式
@@ -39,7 +39,7 @@ namespace JTNE.Protocol.Formatters {
             // 8.1.根据数据加密方式进行解码
             // 8.2.解析出对应数据体
             if (jTNEPackage.DataUnitLength > 0) {
-                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId (jTNEPackage.MsgId);
+                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId ((byte)jTNEPackage.MsgId);
                 if (jTNEBodiesImplType != null) {
                     int bodyReadSize = 0;
                     try {
@@ -76,9 +76,9 @@ namespace JTNE.Protocol.Formatters {
             // 2.起始符2
             offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, value.BeginFlag2);
             // 3.命令标识
-            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, value.MsgId);
+            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, (byte)value.MsgId);
             // 4.应答标识
-            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, value.AskId);
+            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, (byte)value.AskId);
             // 5.VIN
             offset += JTNEBinaryExtensions.WriteStringPadRightLittle (bytes, offset, value.VIN, 17);
             // 6.数据加密方式
@@ -86,7 +86,7 @@ namespace JTNE.Protocol.Formatters {
             // 7.记录当前偏移量
             int tmpOffset = offset;
             // 8.数据体
-            Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId (value.MsgId);
+            Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId ((byte)value.MsgId);
             int messageBodyOffset = 0;
             if (jTNEBodiesImplType != null) {
                 if (value.Bodies != null) {

@@ -13,7 +13,7 @@ namespace JTNE.Protocol.Test.Extensions
         [Fact]
         public void Test1()
         {
-            JTNEPackage jTNEPackage= JTNEMsgId.login.Create("123456789", JTNEAskId.CMD, new JTNE_0x01
+            JTNEPackage jTNEPackage= JTNEMsgId.Login.Create("123456789", JTNEAskId.CMD, new JTNE_0x01
             {
                 PDATime = DateTime.Parse("2019-01-22 23:55:56"),
                 LoginNum = 1,

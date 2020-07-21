@@ -4,22 +4,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace JTNE.Protocol.Extensions
-{
+namespace JTNE.Protocol.Extensions {
     /// <summary>
     /// 枚举扩展
     /// </summary>
-    public static class JT808EnumExtensions
-    {
+    public static class JT808EnumExtensions {
         /// <summary>
         /// 转为整型
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static int ToValue<T>(this T t) where T : struct
-        {
-            return Convert.ToInt32(t);
+        public static int ToValue<T> (this T t) where T : struct {
+            return Convert.ToInt32 (t);
         }
 
         /// <summary>
@@ -28,9 +25,8 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static ushort ToUInt16Value<T>(this T t) where T : struct
-        {
-            return Convert.ToUInt16(t);
+        public static ushort ToUInt16Value<T> (this T t) where T : struct {
+            return Convert.ToUInt16 (t);
         }
 
         /// <summary>
@@ -39,9 +35,8 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static byte ToByteValue<T>(this T t) where T : struct
-        {
-            return Convert.ToByte(t);
+        public static byte ToByteValue<T> (this T t) where T : struct {
+            return Convert.ToByte (t);
         }
 
         /// <summary>
@@ -50,9 +45,8 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="t"></param>
         /// <returns></returns>
-        public static string ToValueString<T>(this T t) where T : struct
-        {
-            return Convert.ToInt32(t).ToString();
+        public static string ToValueString<T> (this T t) where T : struct {
+            return Convert.ToInt32 (t).ToString ();
         }
 
         /// <summary>
@@ -61,18 +55,16 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ToEnum<T>(this string value) where T : struct
-        {
-            return (T)Enum.Parse(typeof(T), value);
+        public static T ToEnum<T> (this string value) where T : struct {
+            return (T) Enum.Parse (typeof (T), value);
         }
 
         /// <summary>
         /// 获取枚举字符串
         /// </summary>
         /// <param name="valueEnum"></param>
-        public static string GetName(this Enum valueEnum)
-        {
-            return valueEnum.ToString();
+        public static string GetName (this Enum valueEnum) {
+            return valueEnum.ToString ();
         }
 
         /// <summary>
@@ -80,10 +72,9 @@ namespace JTNE.Protocol.Extensions
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static string GetDescription(this Enum value)
-        {
-            var attribute = value.GetAttribute<DescriptionAttribute>();
-            return attribute == null ? value.ToString() : attribute.Description;
+        public static string GetDescription (this Enum value) {
+            var attribute = value.GetAttribute<DescriptionAttribute> ();
+            return attribute == null ? value.ToString () : attribute.Description;
         }
 
         /// <summary>
@@ -92,24 +83,21 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="TEnum"></typeparam>
         /// <param name="enumValue"></param>
         /// <returns></returns>
-        public static bool IsEnumValid<TEnum>(this int enumValue)
-        {
-            return Enum.IsDefined(typeof(TEnum), enumValue);
+        public static bool IsEnumValid<TEnum> (this int enumValue) {
+            return Enum.IsDefined (typeof (TEnum), enumValue);
         }
 
         /// <summary>
         /// 获取DescriptionAttribute特性枚举及描述
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Dictionary<string, string> GetDescriptionAttributeDictionary(this Enum value)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            var fields = value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public);
-            foreach (var fi in fields)
-            {
-                DescriptionAttribute attr = Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute), false) as DescriptionAttribute;
-                dictionary.Add(fi.Name, attr != null ? attr.Description : "");
+        public static Dictionary<string, string> GetDescriptionAttributeDictionary (this Enum value) {
+            Dictionary<string, string> dictionary = new Dictionary<string, string> ();
+            var fields = value.GetType ().GetFields (BindingFlags.Static | BindingFlags.Public);
+            foreach (var fi in fields) {
+                DescriptionAttribute attr = Attribute.GetCustomAttribute (fi, typeof (DescriptionAttribute), false) as DescriptionAttribute;
+                dictionary.Add (fi.Name, attr != null ? attr.Description : "");
             }
             return dictionary;
         }
@@ -117,27 +105,24 @@ namespace JTNE.Protocol.Extensions
         /// <summary>
         /// 获取DisplayNameAttribute特性枚举值的描述
         /// </summary>
-        /// <param name="obj">枚举值</param>
+        /// <param name="value">枚举值</param>
         /// <returns></returns>
-        public static string GetDisplayName(this Enum value)
-        {
-            var attribute = value.GetAttribute<DisplayNameAttribute>();
-            return attribute == null ? value.ToString() : attribute.DisplayName;
+        public static string GetDisplayName (this Enum value) {
+            var attribute = value.GetAttribute<DisplayNameAttribute> ();
+            return attribute == null ? value.ToString () : attribute.DisplayName;
         }
 
         /// <summary>
         /// 获取DisplayNameAttribute特性枚举及描述
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="value"></param>
         /// <returns></returns>
-        public static Dictionary<string, string> GetDisplayNameAttributeDictionary(this Enum value)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            var fields = value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public);
-            foreach (var fi in fields)
-            {
-                DisplayNameAttribute attr = Attribute.GetCustomAttribute(fi, typeof(DisplayNameAttribute), false) as DisplayNameAttribute;
-                dictionary.Add(fi.Name, attr != null ? attr.DisplayName : "");
+        public static Dictionary<string, string> GetDisplayNameAttributeDictionary (this Enum value) {
+            Dictionary<string, string> dictionary = new Dictionary<string, string> ();
+            var fields = value.GetType ().GetFields (BindingFlags.Static | BindingFlags.Public);
+            foreach (var fi in fields) {
+                DisplayNameAttribute attr = Attribute.GetCustomAttribute (fi, typeof (DisplayNameAttribute), false) as DisplayNameAttribute;
+                dictionary.Add (fi.Name, attr != null ? attr.DisplayName : "");
             }
             return dictionary;
         }
@@ -148,17 +133,13 @@ namespace JTNE.Protocol.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T GetAttribute<T>(this Enum value) where T : Attribute
-        {
-            try
-            {
-                var type = value.GetType();
-                var memberInfo = type.GetMember(value.ToString());
-                var attributes = memberInfo[0].GetCustomAttributes(typeof(T), false);
-                return (T)attributes[0];
-            }
-            catch
-            {
+        public static T GetAttribute<T> (this Enum value) where T : Attribute {
+            try {
+                var type = value.GetType ();
+                var memberInfo = type.GetMember (value.ToString ());
+                var attributes = memberInfo[0].GetCustomAttributes (typeof (T), false);
+                return (T) attributes[0];
+            } catch {
                 return default;
             }
         }
@@ -171,35 +152,27 @@ namespace JTNE.Protocol.Extensions
         /// <param name="digit">位数(8,16,32)</param>
         /// <param name="ignoreUnknown">是否忽略未知数据</param>
         /// <returns></returns>
-        public static IEnumerable<T> GetEnumTypes<T>(this int value, int digit, bool ignoreUnknown=false) where T : Enum
-        {
-            List<T> values = new List<T>();
-            for (int i = 0; i < digit; i++)
-            {
-                if (Math.Pow(2, i) <= value) continue;
-                values.Add((T)Enum.ToObject(typeof(T), (int)Math.Pow(2, i - 1)));
-                value = value - (int)Math.Pow(2, i - 1);
+        public static IEnumerable<T> GetEnumTypes<T> (this int value, int digit, bool ignoreUnknown = false) where T : Enum {
+            List<T> values = new List<T> ();
+            for (int i = 0; i < digit; i++) {
+                if (Math.Pow (2, i) <= value) continue;
+                values.Add ((T) Enum.ToObject (typeof (T), (int) Math.Pow (2, i - 1)));
+                value = value - (int) Math.Pow (2, i - 1);
                 i = 0;
                 if (value <= 0) break;
             }
-            if (ignoreUnknown)
-            {
-                List<T> results = new List<T>();
-                foreach (var item in values)
-                {
-                    foreach (string itemChild in Enum.GetNames(typeof(T)))
-                    {
-                        if (item.ToString() == itemChild)
-                        {
-                            results.Add(item);
+            if (ignoreUnknown) {
+                List<T> results = new List<T> ();
+                foreach (var item in values) {
+                    foreach (string itemChild in Enum.GetNames (typeof (T))) {
+                        if (item.ToString () == itemChild) {
+                            results.Add (item);
                             break;
                         }
                     }
                 }
                 return results;
-            }
-            else
-            {
+            } else {
                 return values;
             }
         }

@@ -11,8 +11,8 @@ namespace JTNE.Protocol.Test.Package {
         [Fact]
         public void Test1 () {
             JTNEPackage jTNEPackage = new JTNEPackage ();
-            jTNEPackage.AskId = JTNEAskId.CMD.ToByteValue ();
-            jTNEPackage.MsgId = JTNEMsgId.platformlogin.ToByteValue ();
+            jTNEPackage.AskId = JTNEAskId.CMD;
+            jTNEPackage.MsgId = JTNEMsgId.PlatformLogin;
             jTNEPackage.VIN = "123456789";
             JTNE_0x05 jTNE_0X05 = new JTNE_0x05 ();
             jTNE_0X05.LoginTime = DateTime.Parse ("2019-01-23 23:55:56");
@@ -28,8 +28,8 @@ namespace JTNE.Protocol.Test.Package {
         public void Test2 () {
             var data = "232305FE31323334353637383900000000000000000100291301171737381A0A536D616C6C43686935313800313233343536373839303132333435363738390001FF".ToHexBytes ();
             JTNEPackage jTNEPackage = JTNESerializer.Deserialize (data);
-            Assert.Equal (JTNEAskId.CMD.ToByteValue (), jTNEPackage.AskId);
-            Assert.Equal (JTNEMsgId.platformlogin.ToByteValue (), jTNEPackage.MsgId);
+            Assert.Equal (JTNEAskId.CMD, jTNEPackage.AskId);
+            Assert.Equal (JTNEMsgId.PlatformLogin, jTNEPackage.MsgId);
             Assert.Equal ("123456789", jTNEPackage.VIN);
             JTNE_0x05 jTNE_0X05 = jTNEPackage.Bodies as JTNE_0x05;
             Assert.Equal (DateTime.Parse ("2019-01-23 23:55:56"), jTNE_0X05.LoginTime);

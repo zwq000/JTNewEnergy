@@ -26,12 +26,12 @@ namespace JTNE.Protocol
         /// 命令标识 
         /// <see cref="JTNE.Protocol.Enums.JTNEMsgId"/>
         /// </summary>
-        public byte MsgId { get; set; }
+        public JTNEMsgId MsgId { get; set; }
         /// <summary>
         /// 应答标志 
         /// <see cref="JTNE.Protocol.Enums.JTNEAskId"/>
         /// </summary>
-        public byte AskId { get; set; }
+        public JTNEAskId AskId { get; set; }
         /// <summary>
         /// 车辆识别码
         /// </summary>

@@ -21,9 +21,9 @@ namespace JTNE.Protocol {
         }
 
         /// <summary>
-        /// 字符串编码,默认 GB18030
+        /// 字符串编码
         /// </summary>
-        public Encoding Encoding { get; set;}
+        public Encoding Encoding { get; set; }
 
         /// <summary>
         /// 
@@ -41,35 +41,40 @@ namespace JTNE.Protocol {
         /// 平台流水号
         /// </summary>
         public IPlatformMsgSNDistributed PlatformMsgSNDistributed { get; private set; }
+
         /// <summary>
         /// 跳过校验码
         /// 测试的时候需要手动修改值，避免验证
         /// 默认：false
         /// </summary>
         public bool SkipCRCCode { get; private set; }
+
         /// <summary>
         /// 消息数据体加密算法
         /// RSA=>IJTNEEncryptImpl
         /// AES=>IJTNEEncryptImpl
         /// </summary>
         public Func<JTNEEncryptMethod, IJTNEEncrypt> DataBodiesEncrypt { get; private set; }
+
         /// <summary>
         /// 平台登入加密算法
         /// RSA=>IJTNEEncryptImpl
         /// AES=>IJTNEEncryptImpl
         /// </summary>
         public Func<JTNEEncryptMethod, IJTNEEncrypt> PlatformLoginEncrypt { get; private set; }
+
         /// <summary>
         /// 注册自定义消息
         /// </summary>
         /// <typeparam name="TJTNEBodies"></typeparam>
-        /// <param name="msgId"></param>
+        /// <param name="customMsgId"></param>
         /// <returns></returns>
         public JTNEGlobalConfigs Register_CustomMsgId<TJTNEBodies> (byte customMsgId)
         where TJTNEBodies : JTNEBodies {
             JTNEMsgIdFactory.SetMap<TJTNEBodies> (customMsgId);
             return instance.Value;
         }
+
         /// <summary>
         /// 重写消息
         /// </summary>
@@ -93,6 +98,7 @@ namespace JTNE.Protocol {
             }
             return instance.Value;
         }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -108,12 +114,12 @@ namespace JTNE.Protocol {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="typeCode">自定义类型编码</param>
-        /// <param name="type">继承JTNE.Protocol.MessageBody.JTNE_0x81_Body</param>
+        /// <param name="dependerId">自定义类型编码</param>
+        /// <param name="dependedId">继承JTNE.Protocol.MessageBody.JTNE_0x81_Body</param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_JTNE0x81CustomDepenedBody (byte DependerParamId, byte DependedParamId) {
-            if (!JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.ContainsKey (DependerParamId)) {
-                JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.Add (DependerParamId, DependedParamId);
+        public JTNEGlobalConfigs Register_JTNE0x81CustomDepenedBody (byte dependerId, byte dependedId) {
+            if (!JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.ContainsKey (dependerId)) {
+                JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.Add (dependerId, dependedId);
             }
             return instance.Value;
         }
