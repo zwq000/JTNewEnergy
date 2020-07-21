@@ -22,10 +22,6 @@
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\JTNE.Protocol.xml</DocumentationFile>
-  </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Formatters\MessageBodyFormatters\JTNE_0x80Reply_0x01Formatter.cs" />
     <Compile Remove="Formatters\MessageBodyFormatters\JTNE_0x80Reply_0x02Formatter.cs" />
