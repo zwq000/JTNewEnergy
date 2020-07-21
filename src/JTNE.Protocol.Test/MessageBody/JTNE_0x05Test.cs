@@ -31,7 +31,7 @@ namespace JTNE.Protocol.Test.MessageBody
             Assert.Equal(6666, jTNE_0X05.LoginNum);
             Assert.Equal("SmallChi518", jTNE_0X05.PlatformUserName);
             Assert.Equal("1234567890123456789", jTNE_0X05.PlatformPassword);
-            Assert.Equal(0x00, jTNE_0X05.EncryptMethod);
+            Assert.Equal(0x00, (byte)jTNE_0X05.EncryptMethod);
         }
     }
 }

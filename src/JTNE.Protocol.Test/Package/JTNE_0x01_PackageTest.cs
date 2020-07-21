@@ -57,11 +57,11 @@ namespace JTNE.Protocol.Test.Package
         [Fact]
         public void Test3()
         {
-            JTNEGlobalConfigs.Instance.SetDataBodiesEncrypt((msgId)=> 
+            JTNEGlobalConfigs.Instance.SetDataBodiesEncrypt((encryptMethod)=> 
             {
-                switch (msgId)
+                switch (encryptMethod)
                 {
-                    case 0x03:
+                    case JTNEEncryptMethod.AES128:
                         return new Default_AES128EncryptImpl();
                     default:
                         return default;
@@ -71,7 +71,7 @@ namespace JTNE.Protocol.Test.Package
             jTNEPackage.AskId = JTNEAskId.CMD.ToByteValue();
             jTNEPackage.MsgId = JTNEMsgId.login.ToByteValue();
             jTNEPackage.VIN = "123456789";
-            jTNEPackage.EncryptMethod = JTNEEncryptMethod.AES128.ToByteValue();
+            jTNEPackage.EncryptMethod = JTNEEncryptMethod.AES128;
             JTNE_0x01 jTNE_0X01 = new JTNE_0x01();
             jTNE_0X01.PDATime = DateTime.Parse("2019-01-22 23:55:56");
             jTNE_0X01.LoginNum = 1;
@@ -91,11 +91,11 @@ namespace JTNE.Protocol.Test.Package
         [Fact]
         public void Test4()
         {
-            JTNEGlobalConfigs.Instance.SetDataBodiesEncrypt((msgId) =>
+            JTNEGlobalConfigs.Instance.SetDataBodiesEncrypt((encryptMethod) =>
             {
-                switch (msgId)
+                switch (encryptMethod)
                 {
-                    case 0x03:
+                    case JTNEEncryptMethod.AES128:
                         return new Default_AES128EncryptImpl();
                     default:
                         return default;
@@ -106,7 +106,7 @@ namespace JTNE.Protocol.Test.Package
             Assert.Equal(JTNEAskId.CMD.ToByteValue(), jTNEPackage.AskId);
             Assert.Equal(JTNEMsgId.login.ToByteValue(), jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
-            Assert.Equal(JTNEEncryptMethod.AES128.ToByteValue(), jTNEPackage.EncryptMethod);
+            Assert.Equal(JTNEEncryptMethod.AES128, jTNEPackage.EncryptMethod);
 
             JTNE_0x01 jTNE_0X01 = jTNEPackage.Bodies as JTNE_0x01;
             Assert.Equal(DateTime.Parse("2019-01-22 23:55:56"), jTNE_0X01.PDATime);

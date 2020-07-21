@@ -1,4 +1,5 @@
-﻿using JTNE.Protocol.Extensions;
+﻿using JTNE.Protocol.Enums;
+using JTNE.Protocol.Extensions;
 using JTNE.Protocol.MessageBody;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters
             jTNE_0X05.LoginNum = JTNEBinaryExtensions.ReadUInt16Little(bytes, ref offset);
             jTNE_0X05.PlatformUserName = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset,12);
             jTNE_0X05.PlatformPassword = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset, 20);
-            jTNE_0X05.EncryptMethod = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
+            jTNE_0X05.EncryptMethod = (JTNEEncryptMethod)JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
             readSize = offset;
             return jTNE_0X05;
         }
@@ -27,7 +28,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters
             offset += JTNEBinaryExtensions.WriteUInt16Little(bytes, offset, value.LoginNum);
             offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.PlatformUserName,12);
             offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.PlatformPassword, 20);
-            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, value.EncryptMethod);
+            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, (byte)value.EncryptMethod);
             return offset;
         }
     }

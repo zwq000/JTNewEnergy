@@ -1,4 +1,5 @@
 ﻿using JTNE.Protocol.Attributes;
+using JTNE.Protocol.Enums;
 using JTNE.Protocol.Formatters;
 using System;
 using System.IO;
@@ -40,7 +41,7 @@ namespace JTNE.Protocol
         /// 0x01：数据不加密；0x02：数据经过 RSA 算法加密；0x03:数据经过 AES128 位算法加密；“0xFE”表示异常，“0xFF”表示无效
         /// <see cref="JTNE.Protocol.Enums.JTNEEncryptMethod"/>
         /// </summary>
-        public byte EncryptMethod { get; set; } = 0x01;
+        public JTNEEncryptMethod EncryptMethod { get; set; } = JTNEEncryptMethod.None;
         /// <summary>
         /// 数据单元长度是数据单元的总字节数，有效值范围：0-65531
         /// </summary>

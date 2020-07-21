@@ -95,6 +95,7 @@ namespace JTNE.Protocol.Test.MessageBody
         {
             JTNEGlobalConfigs.Instance.Register_JTNE0x02CustomBody(0xA1, typeof(JTNE_0x02_0xA1));
             JTNEGlobalConfigs.Instance.Register_JTNE0x02CustomBody(0xA2, typeof(JTNE_0x02_0xA2));
+            JTNEGlobalConfigs.Instance.Encoding = Encoding.UTF8;
 
             var data = "01040507003A00001A0A00640063030602007B02030202010201004100370300EC00640203020042023605085800650308AE006F0C9600030102030D1B221A0A560D086502A1000E536D616C6C436869000000000012A20014E5B08FE6B1A0E69C89E99990E585ACE58FB80000".ToHexBytes();
             JTNE_0x02 jTNE_0X02 = JTNESerializer.Deserialize<JTNE_0x02>(data);

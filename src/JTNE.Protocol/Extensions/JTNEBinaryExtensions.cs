@@ -24,7 +24,7 @@ namespace JTNE.Protocol.Extensions
         public static ushort ReadUInt16Little(ReadOnlySpan<byte> read, ref int offset)
         {
             //ushort value = (ushort)((read[offset] << 8) | (read[offset + 1]));
-            var value = BinaryPrimitives.ReadUInt16LittleEndian(read.Slice(offset,2));
+            var value = BinaryPrimitives.ReadUInt16BigEndian(read.Slice(offset,2)); // BinaryPrimitives.ReadUInt16LittleEndian(read.Slice(offset,2));
             offset = offset + 2;
             return value;
         }

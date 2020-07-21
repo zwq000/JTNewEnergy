@@ -1,38 +1,35 @@
-﻿using JTNE.Protocol.Interfaces;
+﻿using System;
+using System.Text;
+using JTNE.Protocol.Enums;
+using JTNE.Protocol.Interfaces;
 using JTNE.Protocol.Internal;
 using JTNE.Protocol.MessageBody;
-using System;
-using System.Text;
 
-namespace JTNE.Protocol
-{
+namespace JTNE.Protocol {
     /// <summary>
     /// 
     /// </summary>
-    public class JTNEGlobalConfigs
-    {
-        private static readonly Lazy<JTNEGlobalConfigs> instance = new Lazy<JTNEGlobalConfigs>(() => new JTNEGlobalConfigs());
+    public class JTNEGlobalConfigs {
+        private static readonly Lazy<JTNEGlobalConfigs> instance = new Lazy<JTNEGlobalConfigs> (() => new JTNEGlobalConfigs ());
 
-        private JTNEGlobalConfigs()
-        {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding = Encoding.GetEncoding("GB18030");
+        private JTNEGlobalConfigs () {
+            Encoding.RegisterProvider (CodePagesEncodingProvider.Instance);
+            Encoding = Encoding.UTF8;
             SkipCRCCode = false;
-            DeviceMsgSNDistributed = new DefaultDeviceMsgSNDistributedImpl();
-            PlatformMsgSNDistributed = new DefaultPlatformMsgSNDistributedImpl();
+            DeviceMsgSNDistributed = new DefaultDeviceMsgSNDistributedImpl ();
+            PlatformMsgSNDistributed = new DefaultPlatformMsgSNDistributedImpl ();
         }
+
         /// <summary>
         /// 字符串编码,默认 GB18030
         /// </summary>
-        public Encoding Encoding { get; }
+        public Encoding Encoding { get; set;}
 
         /// <summary>
         /// 
         /// </summary>
-        public static JTNEGlobalConfigs Instance
-        {
-            get
-            {
+        public static JTNEGlobalConfigs Instance {
+            get {
                 return instance.Value;
             }
         }
@@ -55,23 +52,22 @@ namespace JTNE.Protocol
         /// RSA=>IJTNEEncryptImpl
         /// AES=>IJTNEEncryptImpl
         /// </summary>
-        public Func<byte,IJTNEEncrypt> DataBodiesEncrypt { get; private set; }
+        public Func<JTNEEncryptMethod, IJTNEEncrypt> DataBodiesEncrypt { get; private set; }
         /// <summary>
         /// 平台登入加密算法
         /// RSA=>IJTNEEncryptImpl
         /// AES=>IJTNEEncryptImpl
         /// </summary>
-        public Func<byte, IJTNEEncrypt> PlatformLoginEncrypt { get; private set; }
+        public Func<JTNEEncryptMethod, IJTNEEncrypt> PlatformLoginEncrypt { get; private set; }
         /// <summary>
         /// 注册自定义消息
         /// </summary>
         /// <typeparam name="TJTNEBodies"></typeparam>
         /// <param name="msgId"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_CustomMsgId<TJTNEBodies>(byte customMsgId)
-               where TJTNEBodies : JTNEBodies
-        {
-            JTNEMsgIdFactory.SetMap<TJTNEBodies>(customMsgId);
+        public JTNEGlobalConfigs Register_CustomMsgId<TJTNEBodies> (byte customMsgId)
+        where TJTNEBodies : JTNEBodies {
+            JTNEMsgIdFactory.SetMap<TJTNEBodies> (customMsgId);
             return instance.Value;
         }
         /// <summary>
@@ -80,10 +76,9 @@ namespace JTNE.Protocol
         /// <typeparam name="TJTNEBodies"></typeparam>
         /// <param name="overwriteMsgId"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Overwrite_MsgId<TJTNEBodies>(byte overwriteMsgId)
-               where TJTNEBodies : JTNEBodies
-        {
-            JTNEMsgIdFactory.ReplaceMap<TJTNEBodies>(overwriteMsgId);
+        public JTNEGlobalConfigs Overwrite_MsgId<TJTNEBodies> (byte overwriteMsgId)
+        where TJTNEBodies : JTNEBodies {
+            JTNEMsgIdFactory.ReplaceMap<TJTNEBodies> (overwriteMsgId);
             return instance.Value;
         }
         /// <summary>
@@ -92,11 +87,9 @@ namespace JTNE.Protocol
         /// <param name="typeCode">自定义类型编码</param>
         /// <param name="type">继承JTNE.Protocol.MessageBody.JTNE_0x02_CustomBody</param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_JTNE0x02CustomBody(byte typeCode, Type type)
-        {
-            if (!JTNE_0x02_CustomBody.CustomTypeCodes.ContainsKey(typeCode))
-            {
-                JTNE_0x02_CustomBody.CustomTypeCodes.Add(typeCode, type);
+        public JTNEGlobalConfigs Register_JTNE0x02CustomBody (byte typeCode, Type type) {
+            if (!JTNE_0x02_CustomBody.CustomTypeCodes.ContainsKey (typeCode)) {
+                JTNE_0x02_CustomBody.CustomTypeCodes.Add (typeCode, type);
             }
             return instance.Value;
         }
@@ -106,11 +99,9 @@ namespace JTNE.Protocol
         /// <param name="typeCode">自定义类型编码</param>
         /// <param name="type">继承JTNE.Protocol.MessageBody.JTNE_0x81_Body</param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_JTNE0x81CustomBody(byte typeCode, Type type)
-        {
-            if (!JTNE_0x81_Body.JTNE_0x81Method.ContainsKey(typeCode))
-            {
-                JTNE_0x81_Body.JTNE_0x81Method.Add(typeCode, type);
+        public JTNEGlobalConfigs Register_JTNE0x81CustomBody (byte typeCode, Type type) {
+            if (!JTNE_0x81_Body.JTNE_0x81Method.ContainsKey (typeCode)) {
+                JTNE_0x81_Body.JTNE_0x81Method.Add (typeCode, type);
             }
             return instance.Value;
         }
@@ -120,11 +111,9 @@ namespace JTNE.Protocol
         /// <param name="typeCode">自定义类型编码</param>
         /// <param name="type">继承JTNE.Protocol.MessageBody.JTNE_0x81_Body</param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_JTNE0x81CustomDepenedBody(byte DependerParamId, byte DependedParamId)
-        {
-            if (!JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.ContainsKey(DependerParamId))
-            {
-                JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.Add(DependerParamId, DependedParamId);
+        public JTNEGlobalConfigs Register_JTNE0x81CustomDepenedBody (byte DependerParamId, byte DependedParamId) {
+            if (!JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.ContainsKey (DependerParamId)) {
+                JTNE_0x81_Body.JTNE_0x81LengthOfADependOnValueOfB.Add (DependerParamId, DependedParamId);
             }
             return instance.Value;
         }
@@ -134,11 +123,9 @@ namespace JTNE.Protocol
         /// <param name="typeCode">自定义类型编码</param>
         /// <param name="type">继承JTNE.Protocol.MessageBody.JTNE_0x81_Body</param>
         /// <returns></returns>
-        public JTNEGlobalConfigs Register_JTNE0x82CustomBody(byte typeCode, Type type)
-        {
-            if (!JTNE_0x82_Body.JTNE_0x82Method.ContainsKey(typeCode))
-            {
-                JTNE_0x82_Body.JTNE_0x82Method.Add(typeCode, type);
+        public JTNEGlobalConfigs Register_JTNE0x82CustomBody (byte typeCode, Type type) {
+            if (!JTNE_0x82_Body.JTNE_0x82Method.ContainsKey (typeCode)) {
+                JTNE_0x82_Body.JTNE_0x82Method.Add (typeCode, type);
             }
             return instance.Value;
         }
@@ -148,8 +135,7 @@ namespace JTNE.Protocol
         /// </summary>
         /// <param name="skipCRCCode"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs SetSkipCRCCode(bool skipCRCCode)
-        {
+        public JTNEGlobalConfigs SetSkipCRCCode (bool skipCRCCode) {
             instance.Value.SkipCRCCode = skipCRCCode;
             return instance.Value;
         }
@@ -158,8 +144,7 @@ namespace JTNE.Protocol
         /// </summary>
         /// <param name="deviceMsgSNDistributed"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs SetDeviceMsgSNDistributed(IDeviceMsgSNDistributed deviceMsgSNDistributed)
-        {
+        public JTNEGlobalConfigs SetDeviceMsgSNDistributed (IDeviceMsgSNDistributed deviceMsgSNDistributed) {
             instance.Value.DeviceMsgSNDistributed = deviceMsgSNDistributed;
             return instance.Value;
         }
@@ -168,8 +153,7 @@ namespace JTNE.Protocol
         /// </summary>
         /// <param name="platformMsgSNDistributed"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs SetPlatformMsgSNDistributed(IPlatformMsgSNDistributed platformMsgSNDistributed)
-        {
+        public JTNEGlobalConfigs SetPlatformMsgSNDistributed (IPlatformMsgSNDistributed platformMsgSNDistributed) {
             instance.Value.PlatformMsgSNDistributed = platformMsgSNDistributed;
             return instance.Value;
         }
@@ -178,8 +162,7 @@ namespace JTNE.Protocol
         /// </summary>
         /// <param name="dataBodiesEncrypt"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs SetDataBodiesEncrypt(Func<byte, IJTNEEncrypt> dataBodiesEncrypt)
-        {
+        public JTNEGlobalConfigs SetDataBodiesEncrypt (Func<JTNEEncryptMethod, IJTNEEncrypt> dataBodiesEncrypt) {
             instance.Value.DataBodiesEncrypt = dataBodiesEncrypt;
             return instance.Value;
         }
@@ -188,8 +171,7 @@ namespace JTNE.Protocol
         /// </summary>
         /// <param name="platformLoginEncrypt"></param>
         /// <returns></returns>
-        public JTNEGlobalConfigs SetPlatformLoginEncrypt(Func<byte, IJTNEEncrypt> platformLoginEncrypt)
-        {
+        public JTNEGlobalConfigs SetPlatformLoginEncrypt (Func<JTNEEncryptMethod, IJTNEEncrypt> platformLoginEncrypt) {
             instance.Value.PlatformLoginEncrypt = platformLoginEncrypt;
             return instance.Value;
         }
