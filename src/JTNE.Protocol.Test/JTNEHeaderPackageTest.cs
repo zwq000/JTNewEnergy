@@ -1,15 +1,24 @@
 ﻿using JTNE.Protocol.Enums;
 using JTNE.Protocol.Extensions;
 using JTNE.Protocol.MessageBody;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace JTNE.Protocol.Test
 {
     public class JTNEHeaderPackageTest
     {
+        private readonly ITestOutputHelper output;
+
+        public JTNEHeaderPackageTest(ITestOutputHelper outputHelper)
+        {
+            this.output = outputHelper;
+        }
+
         [Fact]
         public void Test1()
         {
@@ -51,5 +60,24 @@ namespace JTNE.Protocol.Test
             Assert.Equal("4567", jTNE_0X01.BatteryNos[1]);
             Assert.Equal("9870", jTNE_0X01.BatteryNos[2]);
         }
+
+         [Fact]
+        public void TestGuangtai(){
+            var data = "23 23 05 FE 30 30 30 30 30 30 30 30 30 30 30 30 30 32 31 31 31 01 29 00 14 07 14 13 26 22 00 01 CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB CD FE BA A3 B9 E3 CC A9 BF D5 B8 DB B3 B5 C1 AA CD F2 01 02 01 A1".ToHexBytes();
+            var  package = JTNESerializer.Deserialize(data);
+            Assert.Equal(JTNEAskId.CMD.ToByteValue(), package.AskId);
+            Assert.Equal(JTNEMsgId.platformlogin.ToByteValue(), package.MsgId);
+            Assert.Equal(41,package.DataUnitLength);
+            Assert.NotNull(package.Bodies);
+
+            Assert.IsType<JTNE_0x05>(package.Bodies);
+
+            output.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(package.Bodies,Formatting.Indented));
+
+            var loginbody = (JTNE_0x05) package.Bodies;
+            Assert.Equal("威海广泰空港",loginbody.PlatformUserName);
+            Assert.Equal(256,loginbody.LoginNum);
+
+        }    
     }
 }

@@ -16,13 +16,13 @@ namespace JTNE.Protocol
         private JTNEGlobalConfigs()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding = Encoding.UTF8;
+            Encoding = Encoding.GetEncoding("GB18030");
             SkipCRCCode = false;
             DeviceMsgSNDistributed = new DefaultDeviceMsgSNDistributedImpl();
             PlatformMsgSNDistributed = new DefaultPlatformMsgSNDistributedImpl();
         }
         /// <summary>
-        /// 字符串编码
+        /// 字符串编码,默认 GB18030
         /// </summary>
         public Encoding Encoding { get; }
 
