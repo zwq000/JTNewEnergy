@@ -72,9 +72,9 @@ namespace JTNE.Protocol.Formatters {
 
         public int Serialize (ref byte[] bytes, int offset, JTNEPackage value) {
             // 1.起始符1
-            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, value.BeginFlag1);
+            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, JTNEPackage.BeginFlag);
             // 2.起始符2
-            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, value.BeginFlag2);
+            offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, JTNEPackage.BeginFlag);
             // 3.命令标识
             offset += JTNEBinaryExtensions.WriteByteLittle (bytes, offset, (byte)value.MsgId);
             // 4.应答标识

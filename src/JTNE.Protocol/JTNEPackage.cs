@@ -14,14 +14,14 @@ namespace JTNE.Protocol
     {
         public const int FixedHeaderLength = 24;
         public const byte BeginFlag = 0x23;
-        /// <summary>
-        /// 起始符1
-        /// </summary>
-        public byte BeginFlag1 { get; set; } = BeginFlag;
-        /// <summary>
-        /// 起始符2 
-        /// </summary>
-        public byte BeginFlag2 { get; set; } = BeginFlag;
+        // /// <summary>
+        // /// 起始符1
+        // /// </summary>
+        // public byte BeginFlag1 { get; set; } = BeginFlag;
+        // /// <summary>
+        // /// 起始符2 
+        // /// </summary>
+        // public byte BeginFlag2 { get; set; } = BeginFlag;
         /// <summary>
         /// 命令标识 
         /// <see cref="JTNE.Protocol.Enums.JTNEMsgId"/>
