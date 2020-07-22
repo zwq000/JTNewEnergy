@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol", "src\JTNE.Protocol\JTNE.Protocol.csproj", "{5B164F58-141D-474E-A82E-672A1C252029}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Test", "test\JTNE.Protocol.Test\JTNE.Protocol.Test.csproj", "{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A45A9F03-D8A2-41D9-B981-54468EB61F86}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Benchmark", "test\JTNE.Protocol.Benchmark\JTNE.Protocol.Benchmark.csproj", "{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JTNE.Protocol.Test", "test\JTNE.Protocol.Test\JTNE.Protocol.Test.csproj", "{EE0B9180-71D5-4EC0-879A-9105574283B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JTNE.Protocol.Benchmark", "test\JTNE.Protocol.Benchmark\JTNE.Protocol.Benchmark.csproj", "{0A7053EB-FEC2-43A4-8B75-C561C9CC0922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,19 +21,23 @@ Global
 		{5B164F58-141D-474E-A82E-672A1C252029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B164F58-141D-474E-A82E-672A1C252029}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B164F58-141D-474E-A82E-672A1C252029}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE0B9180-71D5-4EC0-879A-9105574283B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0B9180-71D5-4EC0-879A-9105574283B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0B9180-71D5-4EC0-879A-9105574283B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0B9180-71D5-4EC0-879A-9105574283B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A7053EB-FEC2-43A4-8B75-C561C9CC0922}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A7053EB-FEC2-43A4-8B75-C561C9CC0922}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A7053EB-FEC2-43A4-8B75-C561C9CC0922}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A7053EB-FEC2-43A4-8B75-C561C9CC0922}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E7AF20B3-4327-4DF7-B503-9FE08AA92A75}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE0B9180-71D5-4EC0-879A-9105574283B2} = {A45A9F03-D8A2-41D9-B981-54468EB61F86}
+		{0A7053EB-FEC2-43A4-8B75-C561C9CC0922} = {A45A9F03-D8A2-41D9-B981-54468EB61F86}
 	EndGlobalSection
 EndGlobal

@@ -10,7 +10,7 @@ namespace JTNE.Protocol
     /// 只做简单的头部解析不做复杂的业务逻辑
     /// 例如:不同的厂商可能加密方式不同，所以消息数据体不做加解密的判断。
     /// </summary>
-    [JTNEFormatter(typeof(JTNEHeaderPackageFormatter))]
+    [JTNEFormatter(typeof(JTNEPackageHeaderFormatter))]
     public class JTNEPackageHeader
     {
         /// <summary>

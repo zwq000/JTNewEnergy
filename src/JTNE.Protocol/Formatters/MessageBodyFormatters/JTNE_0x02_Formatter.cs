@@ -14,6 +14,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters
             JTNE_0x02 jTNE_0X02 = new JTNE_0x02();
             jTNE_0X02.Values = new Dictionary<byte, JTNE_0x02_Body>();
             jTNE_0X02.CusotmValues = new Dictionary<byte, byte[]>();
+            jTNE_0X02.Time = JTNEBinaryExtensions.ReadDateTime6Little(bytes,ref offset);
             while (offset < bytes.Length)
             {
                 byte typeCode = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);

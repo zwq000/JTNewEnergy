@@ -13,6 +13,12 @@ namespace JTNE.Protocol.MessageBody
     public class JTNE_0x02 : JTNEBodies
     {
         /// <summary>
+        /// 数据采集时间
+        /// </summary>
+        /// <value></value>
+        public DateTime Time { get; internal set; }
+
+        /// <summary>
         /// 公共值
         /// </summary>
         public Dictionary<byte, JTNE_0x02_Body> Values { get; set; }
@@ -24,5 +30,6 @@ namespace JTNE.Protocol.MessageBody
         /// 自定义值
         /// </summary>
         public Dictionary<byte, byte[]> CusotmValues { get; set; }
+        
     }
 }

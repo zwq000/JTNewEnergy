@@ -8,10 +8,10 @@ using Xunit.Abstractions;
 
 namespace JTNE.Protocol.Test
 {
-    public class JTNEHeaderPackageTest {
+    public class JTNEPackageHeaderTest {
         private readonly ITestOutputHelper output;
 
-        public JTNEHeaderPackageTest (ITestOutputHelper outputHelper) {
+        public JTNEPackageHeaderTest (ITestOutputHelper outputHelper) {
             this.output = outputHelper;
         }
 
