@@ -13,14 +13,14 @@ namespace JTNE.Protocol
     [JTNEFormatter(typeof(JTNEPackageHeaderFormatter))]
     public class JTNEPackageHeader
     {
-        /// <summary>
-        /// 起始符1
-        /// </summary>
-        public byte BeginFlag1 { get; set; } = JTNEPackage.BeginFlag;
-        /// <summary>
-        /// 起始符2 
-        /// </summary>
-        public byte BeginFlag2 { get; set; } = JTNEPackage.BeginFlag;
+        // /// <summary>
+        // /// 起始符1
+        // /// </summary>
+        // public byte BeginFlag1 { get; set; } = JTNEPackage.BeginFlag;
+        // /// <summary>
+        // /// 起始符2 
+        // /// </summary>
+        // public byte BeginFlag2 { get; set; } = JTNEPackage.BeginFlag;
         /// <summary>
         /// 命令标识 
         /// <see cref="JTNE.Protocol.Enums.JTNEMsgId"/>

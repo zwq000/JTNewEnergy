@@ -16,10 +16,13 @@ namespace JTNE.Protocol.Test
             this.output = outputHelper;
         }
         const string PKG_02="232302FE303030303030303030303032303037343101009C1407160C260901FF04010000FFFFFFFFE62827BB2EFFFE03C4FFFF020101FFFF4E204E204DFFFFFFFF03FFFFFFFFFFFF3000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0401FFFFFFFFFFFFFFFFFFFFFF05FFFFFFFFFFFFFFFFFF06FFFFFFFFFFFFFFFF431047200045070000000000000000003A";
+        const string PKG_02_2 = "232302FE303030303030303030303032303037343101009C1407160E0E0F01FF040100E6FFFFFFFFE54C28EE2BFFFE0426FFFF020101FFFF517457F851FFFFFFFF03FFFFFFFFFFFF3000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0401FFFFFFFFFFFFFFFFFFFFFF05FFFFFFFFFFFFFFFFFF06FFFFFFFFFFFFFFFF43124720004507000000000000000000B9";
 
-        [Fact]
-        public void TestPackage02(){
-            var package = JTNESerializer.Deserialize (PKG_02.ToHexBytes());
+        [Theory]
+        [InlineData(PKG_02)]
+        [InlineData(PKG_02_2)]
+        public void TestPackage02(string hexStr){
+            var package = JTNESerializer.Deserialize (hexStr.ToHexBytes());
             Assert.NotNull(package);
             Assert.Equal(JTNEMsgId.UploadIM,package.MsgId);
             Assert.NotNull(package.Bodies);
@@ -27,6 +30,12 @@ namespace JTNE.Protocol.Test
             var body = (JTNE_0x02)package.Bodies;
             Assert.NotNull(body.Values);
             Assert.NotEmpty(body.Values);
+
+             output.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(body,Formatting.Indented));
+
+            // foreach(var item in body.Values){
+            //     output.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item.Value,Formatting.Indented));
+            // }
         }
 
          [Fact]
