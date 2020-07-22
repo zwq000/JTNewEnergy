@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JTNE.Protocol\JTNE.Protocol.csproj" />
+    <ProjectReference Include="..\..\src\JTNE.Protocol\JTNE.Protocol.csproj" />
   </ItemGroup>
 
 </Project>

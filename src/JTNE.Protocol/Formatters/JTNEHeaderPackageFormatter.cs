@@ -8,9 +8,9 @@ using System.Text;
 
 namespace JTNE.Protocol.Formatters
 {
-    public class JTNEHeaderPackageFormatter : IJTNEFormatter<JTNEHeaderPackage>
+    public class JTNEHeaderPackageFormatter : IJTNEFormatter<JTNEPackageHeader>
     {
-        public JTNEHeaderPackage Deserialize(ReadOnlySpan<byte> bytes, out int readSize)
+        public JTNEPackageHeader Deserialize(ReadOnlySpan<byte> bytes, out int readSize)
         {
             int offset = 0;
             // 1.进行固定头校验
@@ -25,7 +25,7 @@ namespace JTNE.Protocol.Formatters
                 if (bCCCode != bCCCode2)
                     throw new JTNEException(JTNEErrorCode.BCCCodeError, $"request:{bCCCode}!=calculate:{bCCCode2}");
             }
-            JTNEHeaderPackage jTNEPackage = new JTNEHeaderPackage();
+            JTNEPackageHeader jTNEPackage = new JTNEPackageHeader();
             offset += 2;
             // 3.命令标识
             jTNEPackage.MsgId = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
@@ -42,7 +42,7 @@ namespace JTNE.Protocol.Formatters
             // todo: 8.2.解析出对应数据体
             if (jTNEPackage.DataUnitLength > 0)
             {
-                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId(jTNEPackage.MsgId);
+                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId(jTNEPackage.MsgId);
                 if (jTNEBodiesImplType != null)
                 {
                     int bodyReadSize = 0;
@@ -63,7 +63,7 @@ namespace JTNE.Protocol.Formatters
             return jTNEPackage;
         }
 
-        public int Serialize(ref byte[] bytes, int offset, JTNEHeaderPackage value)
+        public int Serialize(ref byte[] bytes, int offset, JTNEPackageHeader value)
         {
             // 1.起始符1
             offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, value.BeginFlag1);

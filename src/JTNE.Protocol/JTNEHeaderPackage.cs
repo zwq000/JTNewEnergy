@@ -11,7 +11,7 @@ namespace JTNE.Protocol
     /// 例如:不同的厂商可能加密方式不同，所以消息数据体不做加解密的判断。
     /// </summary>
     [JTNEFormatter(typeof(JTNEHeaderPackageFormatter))]
-    public class JTNEHeaderPackage
+    public class JTNEPackageHeader
     {
         /// <summary>
         /// 起始符1

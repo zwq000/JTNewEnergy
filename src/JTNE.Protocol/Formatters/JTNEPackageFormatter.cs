@@ -39,7 +39,7 @@ namespace JTNE.Protocol.Formatters {
             // 8.1.根据数据加密方式进行解码
             // 8.2.解析出对应数据体
             if (jTNEPackage.DataUnitLength > 0) {
-                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId ((byte)jTNEPackage.MsgId);
+                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId ((byte)jTNEPackage.MsgId);
                 if (jTNEBodiesImplType != null) {
                     int bodyReadSize = 0;
                     try {
@@ -86,7 +86,7 @@ namespace JTNE.Protocol.Formatters {
             // 7.记录当前偏移量
             int tmpOffset = offset;
             // 8.数据体
-            Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodiesImplTypeByMsgId ((byte)value.MsgId);
+            Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId ((byte)value.MsgId);
             int messageBodyOffset = 0;
             if (jTNEBodiesImplType != null) {
                 if (value.Bodies != null) {

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol", "JTNE.Protocol\JTNE.Protocol.csproj", "{5B164F58-141D-474E-A82E-672A1C252029}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol", "src\JTNE.Protocol\JTNE.Protocol.csproj", "{5B164F58-141D-474E-A82E-672A1C252029}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Test", "JTNE.Protocol.Test\JTNE.Protocol.Test.csproj", "{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Test", "test\JTNE.Protocol.Test\JTNE.Protocol.Test.csproj", "{30BB532E-4E49-4BB4-A1D4-61DC40F320DB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Benchmark", "JTNE.Protocol.Benchmark\JTNE.Protocol.Benchmark.csproj", "{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JTNE.Protocol.Benchmark", "test\JTNE.Protocol.Benchmark\JTNE.Protocol.Benchmark.csproj", "{CC6DFCDE-4A75-4643-9416-D459EE9CC88C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

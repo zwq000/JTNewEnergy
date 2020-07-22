@@ -13,23 +13,26 @@ namespace JTNE.Protocol.Internal {
             InitMap ();
         }
 
-        internal static Type GetBodiesImplTypeByMsgId (byte msgId) => map.TryGetValue (msgId, out Type type) ? type : null;
+        /// <summary>
+        /// 根据 <see cref="JTNEPackage.MsgId"/> 获取 body 类型
+        /// </summary>
+        /// <param name="msgId"></param>
+        /// <returns></returns>
+        internal static Type GetBodyTypeByMsgId (byte msgId) => map.TryGetValue (msgId, out Type type) ? type : null;
 
         private static void InitMap () {
             foreach (JTNEMsgId msgId in Enum.GetValues (typeof (JTNEMsgId))) {
-                JTNEBodiesTypeAttribute jT808BodiesTypeAttribute = msgId.GetAttribute<JTNEBodiesTypeAttribute> ();
-                map.Add ((byte) msgId, jT808BodiesTypeAttribute?.JT808BodiesType);
+                JTNEBodiesTypeAttribute attr = msgId.GetAttribute<JTNEBodiesTypeAttribute> ();
+                map.Add ((byte) msgId, attr?.BodyType);
             }
         }
 
-        internal static void SetMap<TJTNEBodies> (byte msgId)
-        where TJTNEBodies : JTNEBodies {
+        internal static void SetMap<TJTNEBodies> (byte msgId) where TJTNEBodies : JTNEBodies {
             if (!map.ContainsKey (msgId))
                 map.Add (msgId, typeof (TJTNEBodies));
         }
 
-        internal static void ReplaceMap<TJTNEBodies> (byte msgId)
-        where TJTNEBodies : JTNEBodies {
+        internal static void ReplaceMap<TJTNEBodies> (byte msgId) where TJTNEBodies : JTNEBodies {
             if (!map.ContainsKey (msgId))
                 map.Add (msgId, typeof (TJTNEBodies));
             else
