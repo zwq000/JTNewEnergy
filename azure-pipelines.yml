@@ -19,7 +19,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'src\JTNE.Protocol\JTNE.Protocol.csproj'
+    packagesToPack: '**/*.csproj'
     includesymbols: true
     includesource: true
     versioningScheme: 'byPrereleaseNumber'
