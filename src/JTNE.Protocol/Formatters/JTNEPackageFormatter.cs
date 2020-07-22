@@ -65,7 +65,8 @@ namespace JTNE.Protocol.Formatters {
                 }
             }
             // 9.校验码
-            jTNEPackage.BCCCode = JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
+            //jTNEPackage.BCCCode = JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
+            var bcc = JTNEBinaryExtensions.ReadByteLittle (bytes, ref offset);
             readSize = offset;
             return jTNEPackage;
         }

@@ -50,10 +50,11 @@ namespace JTNE.Protocol
         /// 数据体
         /// </summary>
         public JTNEBodies Bodies { get; set; }
-        /// <summary>
-        /// 采用BCC（异或检验）法，校验范围从命令单元的第一个字节开始，同后一个字节异或，直到校验码前一个字节为止，
-        /// 校验码占用一个字节，当数据单元存在加密时，应先加密后检验，先校验后解密
-        /// </summary>
-        public byte BCCCode { get; set; }
+        
+        // /// <summary>
+        // /// 采用BCC（异或检验）法，校验范围从命令单元的第一个字节开始，同后一个字节异或，直到校验码前一个字节为止，
+        // /// 校验码占用一个字节，当数据单元存在加密时，应先加密后检验，先校验后解密
+        // /// </summary>
+        // public byte BCCCode { get; set; }
     }
 }
