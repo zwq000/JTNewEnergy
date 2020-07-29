@@ -9,8 +9,8 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
         public JTNE_0x02 Deserialize (ReadOnlySpan<byte> bytes, out int readSize) {
             int offset = 0, bodyReadSize = 0;
             JTNE_0x02 jTNE_0X02 = new JTNE_0x02 ();
-            jTNE_0X02.Values = new Dictionary<byte, JTNE_0x02_Body> ();
-            jTNE_0X02.CusotmValues = new Dictionary<byte, byte[]> ();
+            jTNE_0X02.Values = new List<JTNE_0x02_Body> ();
+            //jTNE_0X02.CusotmValues = new Dictionary<byte, byte[]> ();
             jTNE_0X02.Time = bytes.ReadDateTime6Bytes (ref offset);
             while (offset < bytes.Length) {
                 byte typeCode = bytes.ReadByte (ref offset);
@@ -18,7 +18,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
                     var bodyImplFormatter = JTNEFormatterExtensions.GetFormatter (jTNE_0x02_BodyImpl);
                     //从类型编码开始取 offset
                     var bodyData = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (bodyImplFormatter, bytes.Slice (offset), out bodyReadSize);
-                    jTNE_0X02.Values.Add (typeCode, bodyData);
+                    jTNE_0X02.Values.Add (bodyData);
                     offset += bodyReadSize;
                 } else if (JTNE_0x02_CustomBody.CustomTypeCodes.TryGetValue (typeCode, out Type jTNE_0x02_CustomBodyImpl)) {
                     int length = bytes.ReadUInt16 (ref offset);
@@ -40,9 +40,9 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
         public int Serialize (ref byte[] bytes, int offset, JTNE_0x02 value) {
             if (value.Values != null && value.Values.Count > 0) {
                 foreach (var item in value.Values) {
-                    if (JTNE_0x02_Body.TypeCodes.TryGetValue (item.Key, out Type jTNE_0x02_BodyImpl)) {
+                    if (JTNE_0x02_Body.TypeCodes.TryGetValue (item.TypeCode, out Type jTNE_0x02_BodyImpl)) {
                         var bodyImplFormatter = JTNEFormatterExtensions.GetFormatter (jTNE_0x02_BodyImpl);
-                        offset = JTNEFormatterResolverExtensions.JTNEDynamicSerialize (bodyImplFormatter, ref bytes, offset, item.Value);
+                        offset = JTNEFormatterResolverExtensions.JTNEDynamicSerialize (bodyImplFormatter, ref bytes, offset, item.TypeCode);
                     }
                 }
             }

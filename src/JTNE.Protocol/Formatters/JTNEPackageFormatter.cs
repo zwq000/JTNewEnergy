@@ -23,36 +23,36 @@ namespace JTNE.Protocol.Formatters {
                 if (bCCCode != bCCCode2)
                     throw new JTNEException (JTNEErrorCode.BCCCodeError, $"数据包校验错误:0x{bCCCode:X2},计算值:0x{bCCCode2:X2}");
             }
-            JTNEPackage jTNEPackage = new JTNEPackage ();
+            var package = new JTNEPackage ();
             offset += 2;
             // 3.命令标识
-            jTNEPackage.MsgId = (JTNEMsgId) bytes.ReadByte (ref offset);
+            package.MsgId = (JTNEMsgId) bytes.ReadByte (ref offset);
             // 4.应答标识
-            jTNEPackage.AskId = (JTNEAskId) bytes.ReadByte (ref offset);
+            package.AskId = (JTNEAskId) bytes.ReadByte (ref offset);
             // 5.VIN
-            jTNEPackage.VIN = bytes.ReadString (ref offset, 17);
+            package.VIN = bytes.ReadString (ref offset, 17);
             // 6.数据加密方式
-            jTNEPackage.EncryptMethod = (JTNEEncryptMethod) bytes.ReadByte (ref offset);
+            package.EncryptMethod = (JTNEEncryptMethod) bytes.ReadByte (ref offset);
             // 7.数据单元长度是数据单元的总字节数
-            jTNEPackage.DataUnitLength = bytes.ReadUInt16 (ref offset);
+            package.DataUnitLength = bytes.ReadUInt16 (ref offset);
             // 8.数据体
             // 8.1.根据数据加密方式进行解码
             // 8.2.解析出对应数据体
-            if (jTNEPackage.DataUnitLength > 0) {
-                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId ((byte) jTNEPackage.MsgId);
+            if (package.DataUnitLength > 0) {
+                Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId ((byte) package.MsgId);
                 if (jTNEBodiesImplType != null) {
                     int bodyReadSize = 0;
                     try {
-                        if (jTNEPackage.EncryptMethod == JTNEEncryptMethod.None) {
-                            jTNEPackage.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
+                        if (package.EncryptMethod == JTNEEncryptMethod.None) {
+                            package.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
                                 JTNEFormatterExtensions.GetFormatter (jTNEBodiesImplType),
-                                bytes.Slice (offset, jTNEPackage.DataUnitLength),
+                                bytes.Slice (offset, package.DataUnitLength),
                                 out bodyReadSize);
                         } else {
                             if (JTNEGlobalConfigs.Instance.DataBodiesEncrypt != null) {
-                                var data = JTNEGlobalConfigs.Instance.DataBodiesEncrypt (jTNEPackage.EncryptMethod)
-                                    .Decrypt (bytes.Slice (offset, jTNEPackage.DataUnitLength).ToArray ());
-                                jTNEPackage.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
+                                var data = JTNEGlobalConfigs.Instance.DataBodiesEncrypt (package.EncryptMethod)
+                                    .Decrypt (bytes.Slice (offset, package.DataUnitLength).ToArray ());
+                                package.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
                                     JTNEFormatterExtensions.GetFormatter (jTNEBodiesImplType),
                                     data,
                                     out bodyReadSize);
@@ -66,9 +66,9 @@ namespace JTNE.Protocol.Formatters {
             }
             // 9.校验码
             //jTNEPackage.BCCCode = bytes.ReadByteLittle ( ref offset);
-            var bcc = bytes.ReadByte (ref offset);
+            //var bcc = bytes.ReadByte (ref offset);
             readSize = offset;
-            return jTNEPackage;
+            return package;
         }
 
         public int Serialize (ref byte[] bytes, int offset, JTNEPackage value) {

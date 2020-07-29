@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace JTNE.Protocol.MessageBody
-{
-    public abstract class JTNE_0x02_Body
-    {
-        /// <summary>
-        /// 类型编码
-        /// </summary>
-        public byte TypeCode { get; }
-
+namespace JTNE.Protocol.MessageBody {
+    public abstract class JTNE_0x02_Body {
         /// <summary>
         /// 整车数据
         /// </summary>
@@ -48,27 +41,29 @@ namespace JTNE.Protocol.MessageBody
         /// </summary>
         public const byte JTNE_0x02_0x09 = 0x09;
 
-        static JTNE_0x02_Body()
-        {
-            TypeCodes = new Dictionary<byte, Type>();
-            TypeCodes.Add(JTNE_0x02_0x01, typeof(JTNE_0x02_0x01));
-            TypeCodes.Add(JTNE_0x02_0x02, typeof(JTNE_0x02_0x02));
-            TypeCodes.Add(JTNE_0x02_0x03, typeof(JTNE_0x02_0x03));
-            TypeCodes.Add(JTNE_0x02_0x04, typeof(JTNE_0x02_0x04));
-            TypeCodes.Add(JTNE_0x02_0x05, typeof(JTNE_0x02_0x05));
-            TypeCodes.Add(JTNE_0x02_0x06, typeof(JTNE_0x02_0x06));
-            TypeCodes.Add(JTNE_0x02_0x07, typeof(JTNE_0x02_0x07));
-            TypeCodes.Add(JTNE_0x02_0x08, typeof(JTNE_0x02_0x08));
-            TypeCodes.Add(JTNE_0x02_0x09, typeof(JTNE_0x02_0x09));
+        /// <summary>
+        /// 类型编码
+        /// </summary>
+        public byte TypeCode { get; }
+
+        static JTNE_0x02_Body () {
+            TypeCodes = new Dictionary<byte, Type> ();
+            TypeCodes.Add (JTNE_0x02_0x01, typeof (JTNE_0x02_0x01));
+            TypeCodes.Add (JTNE_0x02_0x02, typeof (JTNE_0x02_0x02));
+            TypeCodes.Add (JTNE_0x02_0x03, typeof (JTNE_0x02_0x03));
+            TypeCodes.Add (JTNE_0x02_0x04, typeof (JTNE_0x02_0x04));
+            TypeCodes.Add (JTNE_0x02_0x05, typeof (JTNE_0x02_0x05));
+            TypeCodes.Add (JTNE_0x02_0x06, typeof (JTNE_0x02_0x06));
+            TypeCodes.Add (JTNE_0x02_0x07, typeof (JTNE_0x02_0x07));
+            TypeCodes.Add (JTNE_0x02_0x08, typeof (JTNE_0x02_0x08));
+            TypeCodes.Add (JTNE_0x02_0x09, typeof (JTNE_0x02_0x09));
         }
 
-        protected JTNE_0x02_Body(byte typeCode)
-        {
+        protected JTNE_0x02_Body (byte typeCode) {
             TypeCode = typeCode;
         }
 
         internal static Dictionary<byte, Type> TypeCodes;
-
 
     }
 }

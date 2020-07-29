@@ -21,7 +21,7 @@ namespace JTNE.Protocol.MessageBody
         /// <summary>
         /// 公共值
         /// </summary>
-        public Dictionary<byte, JTNE_0x02_Body> Values { get; set; }
+        public ICollection<JTNE_0x02_Body> Values { get; set; }
         /// <summary>
         /// 用于构造序列化自定义值
         /// </summary>

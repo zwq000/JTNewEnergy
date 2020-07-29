@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using JTNE.Protocol.Extensions;
+using System.Linq;
 
 namespace JTNE.Protocol.Test.MessageBody
 {
@@ -16,7 +17,7 @@ namespace JTNE.Protocol.Test.MessageBody
             JTNEGlobalConfigs.Instance.Register_JTNE0x02CustomBody(0xA2, typeof(JTNE_0x02_0xA2));
 
             JTNE_0x02 jTNE_0X02 = new JTNE_0x02();
-            jTNE_0X02.Values = new Dictionary<byte, JTNE_0x02_Body>();
+            jTNE_0X02.Values = new List<JTNE_0x02_Body>();
             jTNE_0X02.CusotmSerializeObjectValues = new Dictionary<byte, JTNE_0x02_CustomBody>();
 
             JTNE_0x02_0x01 jTNE_0X02_0X01 = new JTNE_0x02_0x01();
@@ -33,7 +34,7 @@ namespace JTNE.Protocol.Test.MessageBody
             jTNE_0X02_0X01.TotalDis = 6666;
             jTNE_0X02_0X01.TotalTemp = 99;
             jTNE_0X02_0X01.TotalVoltage = 100;
-            jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x01, jTNE_0X02_0X01);
+            jTNE_0X02.Values.Add(jTNE_0X02_0X01);
 
             JTNE_0x02_0x02 jTNE_0X02_0X02 = new JTNE_0x02_0x02();
             jTNE_0X02_0X02.Electricals = new List<Metadata.Electrical>();
@@ -57,7 +58,7 @@ namespace JTNE.Protocol.Test.MessageBody
             electrical2.ElVoltage = 2136;
             jTNE_0X02_0X02.Electricals.Add(electrical1);
             jTNE_0X02_0X02.Electricals.Add(electrical2);
-            jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x02, jTNE_0X02_0X02);
+            jTNE_0X02.Values.Add(jTNE_0X02_0X02);
 
             JTNE_0x02_0x03 jTNE_0X02_0X03 = new JTNE_0x02_0x03();
             jTNE_0X02_0X03.DCStatus = 0x02;
@@ -74,7 +75,7 @@ namespace JTNE.Protocol.Test.MessageBody
             {
                 0x01,0x02,0x03
             };
-            jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x03, jTNE_0X02_0X03);
+            jTNE_0X02.Values.Add(jTNE_0X02_0X03);
 
             JTNE_0x02_0xA1 jTNE_0X02_0XA1 = new JTNE_0x02_0xA1();
             jTNE_0X02_0XA1.UserName = "SmallChi";
@@ -100,7 +101,7 @@ namespace JTNE.Protocol.Test.MessageBody
             var data = "01040507003A00001A0A00640063030602007B02030202010201004100370300EC00640203020042023605085800650308AE006F0C9600030102030D1B221A0A560D086502A1000E536D616C6C436869000000000012A20014E5B08FE6B1A0E69C89E99990E585ACE58FB80000".ToHexBytes();
             JTNE_0x02 jTNE_0X02 = JTNESerializer.Deserialize<JTNE_0x02>(data);
 
-            JTNE_0x02_0x01 jTNE_0X02_0X01 = jTNE_0X02.Values[JTNE_0x02_Body.JTNE_0x02_0x01] as JTNE_0x02_0x01;
+            JTNE_0x02_0x01 jTNE_0X02_0X01 = jTNE_0X02.Values.First(p=>p.TypeCode == JTNE_0x02_Body.JTNE_0x02_0x01) as JTNE_0x02_0x01;
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x01, jTNE_0X02_0X01.TypeCode);
             Assert.Equal(0x02, jTNE_0X02_0X01.Accelerator);
             Assert.Equal(0x03, jTNE_0X02_0X01.Brakes);
@@ -117,7 +118,7 @@ namespace JTNE.Protocol.Test.MessageBody
             Assert.Equal(100, jTNE_0X02_0X01.TotalVoltage);
 
 
-            JTNE_0x02_0x02 jTNE_0X02_0X02 = jTNE_0X02.Values[JTNE_0x02_Body.JTNE_0x02_0x02] as JTNE_0x02_0x02;
+            JTNE_0x02_0x02 jTNE_0X02_0X02 = jTNE_0X02.Values.First(p=>p.TypeCode == JTNE_0x02_Body.JTNE_0x02_0x02) as JTNE_0x02_0x02;
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x02, jTNE_0X02_0X02.TypeCode);
             Assert.Equal(2, jTNE_0X02_0X02.ElectricalCount);
             Metadata.Electrical electrical1 = jTNE_0X02_0X02.Electricals[0];
@@ -139,7 +140,7 @@ namespace JTNE.Protocol.Test.MessageBody
             Assert.Equal(566, electrical2.ElTorque);
             Assert.Equal(2136, electrical2.ElVoltage);
 
-            JTNE_0x02_0x03 jTNE_0X02_0X03 = jTNE_0X02.Values[JTNE_0x02_Body.JTNE_0x02_0x03] as JTNE_0x02_0x03;
+            JTNE_0x02_0x03 jTNE_0X02_0X03 = jTNE_0X02.Values.First(p=>p.TypeCode == JTNE_0x02_Body.JTNE_0x02_0x03) as JTNE_0x02_0x03;
 
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x03, jTNE_0X02_0X03.TypeCode);
             Assert.Equal(0x02, jTNE_0X02_0X03.DCStatus);

@@ -3,10 +3,7 @@ using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Environments;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Toolchains.CsProj;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using JTNE.Protocol;
 using JTNE.Protocol.Extensions;
 using JTNE.Protocol.MessageBody;
 using JTNE.Protocol.Enums;
@@ -38,7 +35,7 @@ namespace JTNE.Protocol.Benchmark
                 jTNEPackage.MsgId = JTNEMsgId.UploadIM;
                 jTNEPackage.VIN = "123456789";
                 JTNE_0x02 jTNE_0X02 = new JTNE_0x02();
-                jTNE_0X02.Values = new Dictionary<byte, JTNE_0x02_Body>();
+                jTNE_0X02.Values = new List<JTNE_0x02_Body>();
 
                 JTNE_0x02_0x01 jTNE_0X02_0X01 = new JTNE_0x02_0x01();
                 jTNE_0X02_0X01.Accelerator = 0x02;
@@ -54,7 +51,7 @@ namespace JTNE.Protocol.Benchmark
                 jTNE_0X02_0X01.TotalDis = 6666;
                 jTNE_0X02_0X01.TotalTemp = 99;
                 jTNE_0X02_0X01.TotalVoltage = 100;
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x01, jTNE_0X02_0X01);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X01);
 
                 JTNE_0x02_0x02 jTNE_0X02_0X02 = new JTNE_0x02_0x02();
                 jTNE_0X02_0X02.Electricals = new List<JTNE.Protocol.Metadata.Electrical>();
@@ -78,7 +75,7 @@ namespace JTNE.Protocol.Benchmark
                 electrical2.ElVoltage = 2136;
                 jTNE_0X02_0X02.Electricals.Add(electrical1);
                 jTNE_0X02_0X02.Electricals.Add(electrical2);
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x02, jTNE_0X02_0X02);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X02);
 
                 JTNE_0x02_0x03 jTNE_0X02_0X03 = new JTNE_0x02_0x03();
                 jTNE_0X02_0X03.DCStatus = 0x02;
@@ -95,19 +92,19 @@ namespace JTNE.Protocol.Benchmark
                 {
                 0x01,0x02,0x03
                 };
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x03, jTNE_0X02_0X03);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X03);
 
                 JTNE_0x02_0x04 jTNE_0X02_0X04 = new JTNE_0x02_0x04();
                 jTNE_0X02_0X04.EngineStatus = 0x01;
                 jTNE_0X02_0X04.FuelRate = 102;
                 jTNE_0X02_0X04.Revs = 203;
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x04, jTNE_0X02_0X04);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X04);
 
                 JTNE_0x02_0x05 jTNE_0X02_0X05 = new JTNE_0x02_0x05();
                 jTNE_0X02_0X05.Lat = 1233355;
                 jTNE_0X02_0X05.Lng = 3255555;
                 jTNE_0X02_0X05.PositioStatus = 0x01;
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x05, jTNE_0X02_0X05);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X05);
 
                 JTNE_0x02_0x06 jTNE_0X02_0X06 = new JTNE_0x02_0x06();
                 jTNE_0X02_0X06.MaxTempBatteryAssemblyNo = 0x12;
@@ -122,7 +119,7 @@ namespace JTNE.Protocol.Benchmark
                 jTNE_0X02_0X06.MinVoltageBatteryAssemblyNo = 0x07;
                 jTNE_0X02_0X06.MinVoltageSingleBatteryNo = 0x09;
                 jTNE_0X02_0X06.MinVoltageSingleBatteryValue = 0x08;
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x06, jTNE_0X02_0X06);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X06);
 
                 JTNE_0x02_0x07 jTNE_0X02_0X07 = new JTNE_0x02_0x07();
                 jTNE_0X02_0X07.AlarmBatteryFlag = 5533;
@@ -143,7 +140,7 @@ namespace JTNE.Protocol.Benchmark
             {
                 4000,4001,4002
             };
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x07, jTNE_0X02_0X07);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X07);
 
                 JTNE_0x02_0x08 jTNE_0X02_0X08 = new JTNE_0x02_0x08();
                 jTNE_0X02_0X08.BatteryAssemblies = new List<JTNE.Protocol.Metadata.BatteryAssembly>();
@@ -169,7 +166,7 @@ namespace JTNE.Protocol.Benchmark
             };
                 jTNE_0X02_0X08.BatteryAssemblies.Add(batteryAssembly1);
                 jTNE_0X02_0X08.BatteryAssemblies.Add(batteryAssembly2);
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x08, jTNE_0X02_0X08);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X08);
 
 
                 JTNE_0x02_0x09 jTNE_0X02_0X09 = new JTNE_0x02_0x09();
@@ -191,7 +188,7 @@ namespace JTNE.Protocol.Benchmark
 
                 jTNE_0X02_0X09.BatteryTemperatures.Add(batteryTemperature1);
                 jTNE_0X02_0X09.BatteryTemperatures.Add(batteryTemperature2);
-                jTNE_0X02.Values.Add(JTNE_0x02_Body.JTNE_0x02_0x09, jTNE_0X02_0X09);
+                jTNE_0X02.Values.Add(jTNE_0X02_0X09);
 
                 jTNEPackage.Bodies = jTNE_0X02;
 
