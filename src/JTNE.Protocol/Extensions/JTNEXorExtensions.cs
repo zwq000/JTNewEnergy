@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 
 namespace JTNE.Protocol.Extensions {
-    public static partial class JTNEBinaryExtensions {
+    internal static class JTNEXorExtensions {
         /// <summary>
         /// 异或
         /// </summary>

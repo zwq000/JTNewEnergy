@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace JTNE.Protocol.Extensions {
-    public static partial class JTNEBinaryExtensions {
+    internal static class JTNEDateTimeExtensions {
         /// <summary>
         /// 日期限制于2000年
         /// </summary>

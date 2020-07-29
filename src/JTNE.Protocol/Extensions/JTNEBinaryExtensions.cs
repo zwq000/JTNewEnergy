@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace JTNE.Protocol.Extensions {
-     public static partial class JTNEBinaryExtensions {
+     internal static class JTNEBinaryExtensions {
         public static int ReadInt32 (this ReadOnlySpan<byte> source, ref int offset) {
             int value = ((source[offset] << 24) | (source[offset + 1] << 16) | (source[offset + 2] << 8) | source[offset + 3]);
             offset = offset + 4;

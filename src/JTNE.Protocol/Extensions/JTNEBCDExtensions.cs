@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Text;
 
 namespace JTNE.Protocol.Extensions {
-     public static partial class JTNEBinaryExtensions {
+     internal static class JTNEBCDExtensions {
         public static string ReadBCD (this ReadOnlySpan<byte> buf, ref int offset, int len) {
             int count = len / 2;
             StringBuilder bcdSb = new StringBuilder (count);

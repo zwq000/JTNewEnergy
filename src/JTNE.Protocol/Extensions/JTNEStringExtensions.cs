@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 
 namespace JTNE.Protocol.Extensions {
-    public static partial class JTNEBinaryExtensions {
+    internal static class JTNEStringExtensions {
         public static string ReadString (this ReadOnlySpan<byte> read, ref int offset, int len) {
             string value = JTNEGlobalConfigs.Instance.Encoding.GetString (read.Slice (offset, len).ToArray ());
             offset += len;

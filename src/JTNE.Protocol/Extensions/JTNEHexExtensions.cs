@@ -9,7 +9,7 @@ namespace JTNE.Protocol.Extensions {
     /// 
     /// ref:"www.codeproject.com/tips/447938/high-performance-csharp-byte-array-to-hex-string-t"
     /// </summary>
-    public static partial class JTNEBinaryExtensions {
+    public static class JTNEHexExtensions {
         public static string ToHexString (this byte[] source) {
             return HexUtil.DoHexDump (source, 0, source.Length).ToUpper ();
         }
