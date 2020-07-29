@@ -32,7 +32,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
         }
 
         public int Serialize (ref byte[] bytes, int offset, JTNE_0x82_0x01 value) {
-            offset += bytes.WriteStringLittle (offset, value.UpgradeCommand.ToString ());
+            offset += bytes.WriteString (offset, value.UpgradeCommand.ToString ());
             return offset;
         }
     }

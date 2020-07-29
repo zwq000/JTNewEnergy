@@ -22,8 +22,8 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
         public int Serialize (ref byte[] bytes, int offset, JTNE_0x05 value) {
             offset += bytes.WriteDateTime6Bytes (offset, value.LoginTime);
             offset += bytes.WriteUInt16 (offset, value.LoginNum);
-            offset += bytes.WriteStringLittle (offset, value.PlatformUserName, 12);
-            offset += bytes.WriteStringLittle (offset, value.PlatformPassword, 20);
+            offset += bytes.WriteString (offset, value.PlatformUserName, 12);
+            offset += bytes.WriteString (offset, value.PlatformPassword, 20);
             offset += bytes.WriteByte (offset, (byte) value.EncryptMethod);
             return offset;
         }

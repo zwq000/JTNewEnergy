@@ -15,7 +15,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
         }
 
         public int Serialize (ref byte[] bytes, int offset, JTNE_0x81_0x07 value) {
-            offset += bytes.WriteStringLittle (offset, value.ParamValue, value.ParamLength);
+            offset += bytes.WriteString (offset, value.ParamValue, value.ParamLength);
             return offset;
         }
     }

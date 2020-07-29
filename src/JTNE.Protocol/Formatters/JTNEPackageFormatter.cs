@@ -81,7 +81,7 @@ namespace JTNE.Protocol.Formatters {
             // 4.应答标识
             offset += bytes.WriteByte (offset, (byte) value.AskId);
             // 5.VIN
-            offset += bytes.WriteStringPadRightLittle (offset, value.VIN, 17);
+            offset += bytes.WriteStringPadRight (offset, value.VIN, 17);
             // 6.数据加密方式
             offset += bytes.WriteByte (offset, (byte) value.EncryptMethod);
             // 7.记录当前偏移量

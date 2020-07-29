@@ -24,15 +24,15 @@ namespace JTNE.Protocol.Formatters {
             JTNEPackageHeader jTNEPackage = new JTNEPackageHeader ();
             offset += 2;
             // 3.命令标识
-            jTNEPackage.MsgId = (JTNEMsgId)JTNEBinaryExtensions.ReadByte (bytes, ref offset);
+            jTNEPackage.MsgId = (JTNEMsgId) bytes.ReadByte (ref offset);
             // 4.应答标识
-            jTNEPackage.AskId = (JTNEAskId)JTNEBinaryExtensions.ReadByte (bytes, ref offset);
+            jTNEPackage.AskId = (JTNEAskId) bytes.ReadByte (ref offset);
             // 5.VIN
-            jTNEPackage.VIN = JTNEBinaryExtensions.ReadString (bytes, ref offset, 17);
+            jTNEPackage.VIN = bytes.ReadString (ref offset, 17);
             // 6.数据加密方式
-            jTNEPackage.EncryptMethod = JTNEBinaryExtensions.ReadByte (bytes, ref offset);
+            jTNEPackage.EncryptMethod = bytes.ReadByte (ref offset);
             // 7.数据单元长度是数据单元的总字节数
-            jTNEPackage.DataUnitLength = JTNEBinaryExtensions.ReadUInt16 (bytes, ref offset);
+            jTNEPackage.DataUnitLength = bytes.ReadUInt16 (ref offset);
             // 8.数据体
             // 8.1.根据数据加密方式进行解码
             // todo: 8.2.解析出对应数据体
@@ -47,7 +47,7 @@ namespace JTNE.Protocol.Formatters {
             }
             // 9.校验码
             //jTNEPackage.BCCCode =
-            var bcc = JTNEBinaryExtensions.ReadByte (bytes, ref offset);
+            var bcc = bytes.ReadByte (ref offset);
             readSize = offset;
             return jTNEPackage;
         }
@@ -55,28 +55,28 @@ namespace JTNE.Protocol.Formatters {
         public int Serialize (ref byte[] bytes, int offset, JTNEPackageHeader value) {
 
             // 1.起始符1
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, JTNEPackage.BeginFlag);
+            offset += bytes.WriteByte (offset, JTNEPackage.BeginFlag);
             // 2.起始符2
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, JTNEPackage.BeginFlag);
+            offset += bytes.WriteByte (offset, JTNEPackage.BeginFlag);
             // 3.命令标识
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, (byte)value.MsgId);
+            offset += bytes.WriteByte (offset, (byte) value.MsgId);
             // 4.应答标识
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, (byte)value.AskId);
+            offset += bytes.WriteByte (offset, (byte) value.AskId);
             // 5.VIN
-            offset += JTNEBinaryExtensions.WriteStringPadRightLittle (bytes, offset, value.VIN, 17);
+            offset += bytes.WriteStringPadRight (offset, value.VIN, 17);
             // 6.数据加密方式
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, value.EncryptMethod);
+            offset += bytes.WriteByte (offset, value.EncryptMethod);
             if (value.Bodies != null) {
                 // 7.数据体
-                offset += JTNEBinaryExtensions.WriteUInt16 (bytes, offset, (ushort) value.Bodies.Length);
+                offset += bytes.WriteUInt16 (offset, (ushort) value.Bodies.Length);
                 // 8.处理数据体
-                offset += JTNEBinaryExtensions.WriteBytes (bytes, offset, value.Bodies);
+                offset += bytes.WriteBytes (offset, value.Bodies);
             } else {
-                offset += JTNEBinaryExtensions.WriteUInt16 (bytes, offset, 0);
+                offset += bytes.WriteUInt16 (offset, 0);
             }
             // 9.校验码
             var bccCode = bytes.ToXor (2, offset);
-            offset += JTNEBinaryExtensions.WriteByte (bytes, offset, bccCode);
+            offset += bytes.WriteByte (offset, bccCode);
             return offset;
         }
     }
