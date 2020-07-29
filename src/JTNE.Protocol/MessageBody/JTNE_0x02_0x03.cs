@@ -13,7 +13,9 @@ namespace JTNE.Protocol.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0x03_Formatter))]
     public class JTNE_0x02_0x03 : JTNE_0x02_Body
     {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x03;
+        public JTNE_0x02_0x03() : base(JTNE_0x02_0x03)
+        {
+        }
 
         /// <summary>
         /// 燃料电池电压

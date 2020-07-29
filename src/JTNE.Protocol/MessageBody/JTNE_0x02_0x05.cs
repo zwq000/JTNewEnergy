@@ -13,7 +13,10 @@ namespace JTNE.Protocol.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0x05_Formatter))]
     public class JTNE_0x02_0x05 : JTNE_0x02_Body
     {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x05;
+        public JTNE_0x02_0x05() : base(JTNE_0x02_0x05)
+        {
+        }
+
 
         /// <summary>
         /// 定位状态

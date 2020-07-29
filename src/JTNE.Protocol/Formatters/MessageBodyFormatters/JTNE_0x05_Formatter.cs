@@ -1,34 +1,30 @@
-﻿using JTNE.Protocol.Enums;
-using JTNE.Protocol.Extensions;
-using JTNE.Protocol.MessageBody;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using JTNE.Protocol.Enums;
+using JTNE.Protocol.Extensions;
+using JTNE.Protocol.MessageBody;
 
-namespace JTNE.Protocol.Formatters.MessageBodyFormatters
-{
-    public class JTNE_0x05_Formatter : IJTNEFormatter<JTNE_0x05>
-    {
-        public JTNE_0x05 Deserialize(ReadOnlySpan<byte> bytes, out int readSize)
-        {
+namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
+    public class JTNE_0x05_Formatter : IJTNEFormatter<JTNE_0x05> {
+        public JTNE_0x05 Deserialize (ReadOnlySpan<byte> bytes, out int readSize) {
             int offset = 0;
-            JTNE_0x05 jTNE_0X05 = new JTNE_0x05();
-            jTNE_0X05.LoginTime = JTNEBinaryExtensions.ReadDateTime6Little(bytes, ref offset);
-            jTNE_0X05.LoginNum = JTNEBinaryExtensions.ReadUInt16Little(bytes, ref offset);
-            jTNE_0X05.PlatformUserName = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset,12);
-            jTNE_0X05.PlatformPassword = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset, 20);
-            jTNE_0X05.EncryptMethod = (JTNEEncryptMethod)JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
+            JTNE_0x05 jTNE_0X05 = new JTNE_0x05 ();
+            jTNE_0X05.LoginTime = bytes.ReadDateTime6Bytes (ref offset);
+            jTNE_0X05.LoginNum = bytes.ReadUInt16 (ref offset);
+            jTNE_0X05.PlatformUserName = bytes.ReadString (ref offset, 12);
+            jTNE_0X05.PlatformPassword = bytes.ReadString (ref offset, 20);
+            jTNE_0X05.EncryptMethod = (JTNEEncryptMethod) bytes.ReadByte (ref offset);
             readSize = offset;
             return jTNE_0X05;
         }
 
-        public int Serialize(ref byte[] bytes, int offset, JTNE_0x05 value)
-        {
-            offset += JTNEBinaryExtensions.WriteDateTime6Little(bytes, offset, value.LoginTime);
-            offset += JTNEBinaryExtensions.WriteUInt16Little(bytes, offset, value.LoginNum);
-            offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.PlatformUserName,12);
-            offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.PlatformPassword, 20);
-            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, (byte)value.EncryptMethod);
+        public int Serialize (ref byte[] bytes, int offset, JTNE_0x05 value) {
+            offset += bytes.WriteDateTime6Bytes (offset, value.LoginTime);
+            offset += bytes.WriteUInt16 (offset, value.LoginNum);
+            offset += bytes.WriteStringLittle (offset, value.PlatformUserName, 12);
+            offset += bytes.WriteStringLittle (offset, value.PlatformPassword, 20);
+            offset += bytes.WriteByte (offset, (byte) value.EncryptMethod);
             return offset;
         }
     }

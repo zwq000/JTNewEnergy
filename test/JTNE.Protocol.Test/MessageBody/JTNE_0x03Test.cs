@@ -97,7 +97,7 @@ namespace JTNE.Protocol.Test.MessageBody
             Assert.Equal(0x07, jTNE_0X02_0X01.OperationMode);
             Assert.Equal(123, jTNE_0X02_0X01.Resistance);
             Assert.Equal(0x03, jTNE_0X02_0X01.SOC);
-            Assert.Equal(58, jTNE_0X02_0X01.Speed);
+            Assert.Equal((ushort)58, jTNE_0X02_0X01.Speed);
             Assert.Equal(0x02, jTNE_0X02_0X01.Stall);
             Assert.Equal((uint)6666, jTNE_0X02_0X01.TotalDis);
             Assert.Equal(99, jTNE_0X02_0X01.TotalTemp);

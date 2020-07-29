@@ -79,14 +79,14 @@ namespace JTNE.Protocol.Test.MessageBody
         {
             int offset = 0;
             JTNE_0x80Reply_0x80 jTNE_0x80Reply_0x80 = new JTNE_0x80Reply_0x80();
-            jTNE_0x80Reply_0x80.ParamValue = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
+            jTNE_0x80Reply_0x80.ParamValue = JTNEBinaryExtensions.ReadByte(bytes, ref offset);
             readSize = offset;
             return jTNE_0x80Reply_0x80;
         }
 
         public int Serialize(ref byte[] bytes, int offset, JTNE_0x80Reply_0x80 value)
         {
-            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, value.ParamValue);
+            offset += JTNEBinaryExtensions.WriteByte(bytes, offset, value.ParamValue);
             return offset;
         }
     }
@@ -96,7 +96,7 @@ namespace JTNE.Protocol.Test.MessageBody
         {
             int offset = 0;
             JTNE_0x80Reply_0x81 jTNE_0x80Reply_0x80Reply = new JTNE_0x80Reply_0x81();
-            jTNE_0x80Reply_0x80Reply.ParamValue = JTNEBinaryExtensions.ReadBytesLittle(bytes, ref offset);
+            jTNE_0x80Reply_0x80Reply.ParamValue = JTNEBinaryExtensions.ReadBytes(bytes, ref offset);
             jTNE_0x80Reply_0x80Reply.ParamLength = (byte)bytes.Length;
             readSize = offset;
             return jTNE_0x80Reply_0x80Reply;
@@ -104,7 +104,7 @@ namespace JTNE.Protocol.Test.MessageBody
 
         public int Serialize(ref byte[] bytes, int offset, JTNE_0x80Reply_0x81 value)
         {
-            offset += JTNEBinaryExtensions.WriteBytesLittle(bytes, offset, value.ParamValue);
+            offset += JTNEBinaryExtensions.WriteBytes(bytes, offset, value.ParamValue);
             return offset;
         }
     }

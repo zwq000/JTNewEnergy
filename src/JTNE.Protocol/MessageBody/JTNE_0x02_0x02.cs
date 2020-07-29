@@ -13,7 +13,9 @@ namespace JTNE.Protocol.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0x02_Formatter))]
     public class JTNE_0x02_0x02 : JTNE_0x02_Body
     {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x02;
+        public JTNE_0x02_0x02() : base(JTNE_0x02_0x02)
+        {
+        }
 
         /// <summary>
         /// 电机个数

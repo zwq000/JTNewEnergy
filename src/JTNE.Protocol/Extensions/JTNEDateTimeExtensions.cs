@@ -19,7 +19,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="offset"></param>
         /// <param name="format">D2： 10  X2：16</param>
         /// <returns></returns>
-        public static DateTime ReadDateTime6Little (ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
+        public static DateTime ReadDateTime6Bytes (this ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
             DateTime d = UTCBaseTime;
             try {
                 //int year = Convert.ToInt32(buf[offset].ToString(format)) + DateLimitYear;
@@ -49,7 +49,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="offset"></param>
         /// <param name="format">D2： 10  X2：16</param>
         /// <returns></returns>
-        public static DateTime ReadDateTime4Little (ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
+        public static DateTime ReadDateTime4Bytes (this ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
             DateTime d = UTCBaseTime;
             try {
                 d = new DateTime (
@@ -63,7 +63,7 @@ namespace JTNE.Protocol.Extensions {
             return d;
         }
 
-        public static DateTime ReadUTCDateTimeLittle (ReadOnlySpan<byte> buf, ref int offset) {
+        public static DateTime ReadUTCDateTimeLittle (this ReadOnlySpan<byte> buf, ref int offset) {
             ulong result = 0;
             for (int i = 0; i < 8; i++) {
                 ulong currentData = (ulong) buf[offset + i] << (8 * (8 - i - 1));
@@ -80,7 +80,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="offset"></param>
         /// <param name="format"></param>
         /// <returns></returns>
-        public static DateTime ReadDateTime5Little (ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
+        public static DateTime ReadDateTime5Little (this ReadOnlySpan<byte> buf, ref int offset, string format = "D2") {
 
             DateTime dateTime = new DateTime (
                 DateTime.Now.Year,
@@ -94,7 +94,7 @@ namespace JTNE.Protocol.Extensions {
             return dateTime;
         }
 
-        public static int WriteUTCDateTimeLittle (byte[] bytes, int offset, DateTime date) {
+        public static int WriteUTCDateTime (this byte[] bytes, int offset, DateTime date) {
             ulong totalSecends = (ulong) (date.AddHours (-8) - UTCBaseTime).TotalSeconds;
             //高位在前
             for (int i = 7; i >= 0; i--) {
@@ -111,7 +111,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="offset"></param>
         /// <param name="date"></param>
         /// <returns></returns>
-        public static int WriteDateTime6Little (byte[] bytes, int offset, DateTime date) {
+        public static int WriteDateTime6Bytes (this byte[] bytes, int offset, DateTime date) {
             bytes[offset] =     (byte)(date.Year-DateLimitYear); //Convert.ToByte (date.ToString ("yy"), fromBase);
             bytes[offset + 1] = (byte) date.Month; //Convert.ToByte (date.ToString ("MM"), fromBase);
             bytes[offset + 2] = (byte) date.Day; //Convert.ToByte (date.ToString ("dd"), fromBase);
@@ -129,7 +129,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="date"></param>
         /// <param name="fromBase">BCD：10  HEX：16</param>
         /// <returns></returns>
-        public static int WriteDateTime4Little (byte[] bytes, int offset, DateTime date, int fromBase = 16) {
+        public static int WriteDateTime4Little (this byte[] bytes, int offset, DateTime date, int fromBase = 16) {
             bytes[offset] = (byte) (date.Year >> 8);
             bytes[offset + 1] = (byte) (date.Year);
             bytes[offset + 2] = Convert.ToByte (date.ToString ("MM"), fromBase);
@@ -145,7 +145,7 @@ namespace JTNE.Protocol.Extensions {
         /// <param name="date"></param>
         /// <param name="fromBase"></param>
         /// <returns></returns>
-        public static int WriteDateTime5Little (byte[] bytes, int offset, DateTime date, int fromBase = 16) {
+        public static int WriteDateTime5Little (this byte[] bytes, int offset, DateTime date, int fromBase = 16) {
             bytes[offset] = Convert.ToByte (date.ToString ("HH"), fromBase);
             bytes[offset + 1] = Convert.ToByte (date.ToString ("mm"), fromBase);
             bytes[offset + 2] = Convert.ToByte (date.ToString ("ss"), fromBase);

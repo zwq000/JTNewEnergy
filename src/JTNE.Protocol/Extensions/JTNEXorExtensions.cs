@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
-namespace JTNE.Protocol.Extensions
-{
-    public static partial class JTNEBinaryExtensions
-    {
+namespace JTNE.Protocol.Extensions {
+    public static partial class JTNEBinaryExtensions {
         /// <summary>
         /// 异或
         /// </summary>
@@ -15,12 +13,10 @@ namespace JTNE.Protocol.Extensions
         /// <param name="offset"></param>
         /// <param name="len"></param>
         /// <returns></returns>
-        public static byte ToXor(this byte[] buf, int offset, int len)
-        {
+        public static byte ToXor (this byte[] buf, int offset, int len) {
             byte result = buf[offset];
-            for (int i = offset + 1; i < len; i++)
-            {
-                result = (byte)(result ^ buf[i]);
+            for (int i = offset + 1; i < len; i++) {
+                result = (byte) (result ^ buf[i]);
             }
             return result;
         }
@@ -32,12 +28,10 @@ namespace JTNE.Protocol.Extensions
         /// <param name="offset"></param>
         /// <param name="len"></param>
         /// <returns></returns>
-        public static byte ToXor(this ReadOnlySpan<byte> buf, int offset, int len)
-        {
+        public static byte ToXor (this ReadOnlySpan<byte> buf, int offset, int len) {
             byte result = buf[offset];
-            for (int i = offset + 1; i < len; i++)
-            {
-                result = (byte)(result ^ buf[i]);
+            for (int i = offset + 1; i < len; i++) {
+                result = (byte) (result ^ buf[i]);
             }
             return result;
         }

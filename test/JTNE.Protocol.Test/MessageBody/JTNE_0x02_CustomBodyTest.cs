@@ -41,7 +41,7 @@ namespace JTNE.Protocol.Test.MessageBody
             JTNEGlobalConfigs.Instance.Register_JTNE0x02CustomBody(0xA2, typeof(JTNE_0x02_0xA2));
             JTNEGlobalConfigs.Instance.Encoding = Encoding.UTF8;
 
-            var data = "A1000E536D616C6C436869000000000012A20014E5B08FE6B1A0E69C89E99990E585ACE58FB80000".ToHexBytes();
+            var data = "1407160C2609A1000E536D616C6C436869000000000012A20014E5B08FE6B1A0E69C89E99990E585ACE58FB80000".ToHexBytes();
             JTNE_0x02 jTNE_0X02 = JTNESerializer.Deserialize<JTNE_0x02>(data);
             Assert.Empty(jTNE_0X02.Values);
 
@@ -64,9 +64,11 @@ namespace JTNE.Protocol.Test.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0xA1_Formatter))]
     public class JTNE_0x02_0xA1: JTNE_0x02_CustomBody
     {
-        public override ushort Length { get; set; } = 14;
+        public JTNE_0x02_0xA1() : base(0xA1)
+        {
+        }
 
-        public override byte TypeCode { get; set; } = 0xA1;
+        public override ushort Length { get; set; } = 14;
 
         public string UserName { get; set; }
 
@@ -79,9 +81,11 @@ namespace JTNE.Protocol.Test.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0xA2_Formatter))]
     public class JTNE_0x02_0xA2 : JTNE_0x02_CustomBody
     {
-        public override ushort Length { get; set; } = 20;
+        public JTNE_0x02_0xA2() : base(0xA2)
+        {
+        }
 
-        public override byte TypeCode { get; set; } = 0xA2;
+        public override ushort Length { get; set; } = 20;
 
         public string CompanyName { get; set; }
     }
@@ -95,20 +99,20 @@ namespace JTNE.Protocol.Test.MessageBody
         {
             int offset = 0;
             JTNE_0x02_0xA1 jTNE_0X02_0XA1 = new JTNE_0x02_0xA1();
-            jTNE_0X02_0XA1.TypeCode = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
-            jTNE_0X02_0XA1.Length = JTNEBinaryExtensions.ReadUInt16Little(bytes, ref offset);
-            jTNE_0X02_0XA1.UserName = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset,12);
-            jTNE_0X02_0XA1.Age = JTNEBinaryExtensions.ReadUInt16Little(bytes, ref offset);
+            //jTNE_0X02_0XA1.TypeCode = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
+            jTNE_0X02_0XA1.Length = JTNEBinaryExtensions.ReadUInt16(bytes, ref offset);
+            jTNE_0X02_0XA1.UserName = JTNEBinaryExtensions.ReadString(bytes, ref offset,12);
+            jTNE_0X02_0XA1.Age = JTNEBinaryExtensions.ReadUInt16(bytes, ref offset);
             readSize = offset;
             return jTNE_0X02_0XA1;
         }
 
         public int Serialize(ref byte[] bytes, int offset, JTNE_0x02_0xA1 value)
         {
-            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, value.TypeCode);
-            offset += JTNEBinaryExtensions.WriteUInt16Little(bytes, offset, value.Length);
+            offset += JTNEBinaryExtensions.WriteByte(bytes, offset, value.TypeCode);
+            offset += JTNEBinaryExtensions.WriteUInt16(bytes, offset, value.Length);
             offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.UserName,12);
-            offset += JTNEBinaryExtensions.WriteUInt16Little(bytes, offset, value.Age);
+            offset += JTNEBinaryExtensions.WriteUInt16(bytes, offset, value.Age);
             return offset;
         }
     }
@@ -121,17 +125,16 @@ namespace JTNE.Protocol.Test.MessageBody
         {
             int offset = 0;
             JTNE_0x02_0xA2 jTNE_0X02_0XA2 = new JTNE_0x02_0xA2();
-            jTNE_0X02_0XA2.TypeCode = JTNEBinaryExtensions.ReadByteLittle(bytes, ref offset);
-            jTNE_0X02_0XA2.Length = JTNEBinaryExtensions.ReadUInt16Little(bytes, ref offset);
-            jTNE_0X02_0XA2.CompanyName = JTNEBinaryExtensions.ReadStringLittle(bytes, ref offset, 20);
+            jTNE_0X02_0XA2.Length = JTNEBinaryExtensions.ReadUInt16(bytes, ref offset);
+            jTNE_0X02_0XA2.CompanyName = JTNEBinaryExtensions.ReadString(bytes, ref offset, 20);
             readSize = offset;
             return jTNE_0X02_0XA2;
         }
 
         public int Serialize(ref byte[] bytes, int offset, JTNE_0x02_0xA2 value)
         {
-            offset += JTNEBinaryExtensions.WriteByteLittle(bytes, offset, value.TypeCode);
-            offset += JTNEBinaryExtensions.WriteUInt16Little(bytes, offset, value.Length);
+            offset += JTNEBinaryExtensions.WriteByte(bytes, offset, value.TypeCode);
+            offset += JTNEBinaryExtensions.WriteUInt16(bytes, offset, value.Length);
             offset += JTNEBinaryExtensions.WriteStringLittle(bytes, offset, value.CompanyName, 20);
             return offset;
         }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using JTNE.Protocol.Extensions;
+using JTNE.Protocol.Formatters.MessageBodyFormatters;
 
 namespace JTNE.Protocol.Test.MessageBody
 {
@@ -44,11 +45,21 @@ namespace JTNE.Protocol.Test.MessageBody
             Assert.Equal(0x07, jTNE_0X02_0X01.OperationMode);
             Assert.Equal(123, jTNE_0X02_0X01.Resistance);
             Assert.Equal(0x03, jTNE_0X02_0X01.SOC);
-            Assert.Equal(58, jTNE_0X02_0X01.Speed);
+            Assert.Equal(58, jTNE_0X02_0X01.Speed.RawValue);
             Assert.Equal(0x02, jTNE_0X02_0X01.Stall);
             Assert.Equal((uint)6666, jTNE_0X02_0X01.TotalDis);
             Assert.Equal(99, jTNE_0X02_0X01.TotalTemp);
             Assert.Equal(100, jTNE_0X02_0X01.TotalVoltage);
+        }
+
+        [Fact]
+        public void TestGuangtai(){
+            var data = "0102 0004 0100 0000 0003 e002 4300 005d 0200 30cd ffff".ToHexBytes();
+            var formater = new JTNE_0x02_0x01_Formatter();
+            var body_01 = formater.Deserialize(data.AsSpan().Slice(1),out var size);
+            Assert.Equal(20,size);
+            Assert.NotNull(body_01);
+            Assert.True(body_01.Speed.IsValid);
         }
     }
 }

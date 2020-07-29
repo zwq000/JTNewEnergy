@@ -18,6 +18,11 @@ namespace JTNE.Protocol.MessageBody
         {
             CustomTypeCodes = new Dictionary<byte, Type>();
         }
+
+        public JTNE_0x02_CustomBody(byte typeCode) : base(typeCode)
+        {
+        }
+
         /// <summary>
         /// 自定义类型编码
         /// </summary>

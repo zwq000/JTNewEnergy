@@ -9,7 +9,7 @@ namespace JTNE.Protocol.MessageBody
         /// <summary>
         /// 类型编码
         /// </summary>
-        public abstract byte TypeCode { get; set; }
+        public byte TypeCode { get; }
 
         /// <summary>
         /// 整车数据
@@ -60,6 +60,11 @@ namespace JTNE.Protocol.MessageBody
             TypeCodes.Add(JTNE_0x02_0x07, typeof(JTNE_0x02_0x07));
             TypeCodes.Add(JTNE_0x02_0x08, typeof(JTNE_0x02_0x08));
             TypeCodes.Add(JTNE_0x02_0x09, typeof(JTNE_0x02_0x09));
+        }
+
+        protected JTNE_0x02_Body(byte typeCode)
+        {
+            TypeCode = typeCode;
         }
 
         internal static Dictionary<byte, Type> TypeCodes;

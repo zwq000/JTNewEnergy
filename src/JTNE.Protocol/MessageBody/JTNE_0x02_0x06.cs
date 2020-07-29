@@ -13,7 +13,9 @@ namespace JTNE.Protocol.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0x06_Formatter))]
     public class JTNE_0x02_0x06 : JTNE_0x02_Body
     {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x06;
+        public JTNE_0x02_0x06() : base(JTNE_0x02_0x06)
+        {
+        }
 
         /// <summary>
         /// 最高电压电池总成号

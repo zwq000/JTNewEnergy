@@ -5,15 +5,13 @@ using JTNE.Protocol.Attributes;
 using JTNE.Protocol.Formatters.MessageBodyFormatters;
 using JTNE.Protocol.Metadata;
 
-namespace JTNE.Protocol.MessageBody
-{
+namespace JTNE.Protocol.MessageBody {
     /// <summary>
     /// 发动机数据
     /// </summary>
-    [JTNEFormatter(typeof(JTNE_0x02_0x04_Formatter))]
-    public class JTNE_0x02_0x04 : JTNE_0x02_Body
-    {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x04;
+    [JTNEFormatter (typeof (JTNE_0x02_0x04_Formatter))]
+    public class JTNE_0x02_0x04 : JTNE_0x02_Body {
+        public JTNE_0x02_0x04 () : base (JTNE_0x02_0x04) { }
 
         /// <summary>
         /// 发动机状态

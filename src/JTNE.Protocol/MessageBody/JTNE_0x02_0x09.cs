@@ -5,15 +5,13 @@ using JTNE.Protocol.Attributes;
 using JTNE.Protocol.Formatters.MessageBodyFormatters;
 using JTNE.Protocol.Metadata;
 
-namespace JTNE.Protocol.MessageBody
-{
+namespace JTNE.Protocol.MessageBody {
     /// <summary>
     /// 可充电储能装置温度数据
     /// </summary>
-    [JTNEFormatter(typeof(JTNE_0x02_0x09_Formatter))]
-    public class JTNE_0x02_0x09 : JTNE_0x02_Body
-    {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x09;
+    [JTNEFormatter (typeof (JTNE_0x02_0x09_Formatter))]
+    public class JTNE_0x02_0x09 : JTNE_0x02_Body {
+        public JTNE_0x02_0x09 () : base (JTNE_0x02_0x09) { }
 
         /// <summary>
         /// 可充电储能子系统个数

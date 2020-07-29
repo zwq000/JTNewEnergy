@@ -12,7 +12,9 @@ namespace JTNE.Protocol.MessageBody
     [JTNEFormatter(typeof(JTNE_0x02_0x07_Formatter))]
     public class JTNE_0x02_0x07 : JTNE_0x02_Body
     {
-        public override byte TypeCode { get; set; } = JTNE_0x02_0x07;
+        public JTNE_0x02_0x07() : base(JTNE_0x02_0x07)
+        {
+        }
 
         /// <summary>
         /// 最高报警等级

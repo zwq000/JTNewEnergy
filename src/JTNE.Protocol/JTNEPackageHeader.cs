@@ -1,4 +1,5 @@
 ﻿using JTNE.Protocol.Attributes;
+using JTNE.Protocol.Enums;
 using JTNE.Protocol.Formatters;
 using System;
 using System.IO;
@@ -13,28 +14,23 @@ namespace JTNE.Protocol
     [JTNEFormatter(typeof(JTNEPackageHeaderFormatter))]
     public class JTNEPackageHeader
     {
-        // /// <summary>
-        // /// 起始符1
-        // /// </summary>
-        // public byte BeginFlag1 { get; set; } = JTNEPackage.BeginFlag;
-        // /// <summary>
-        // /// 起始符2 
-        // /// </summary>
-        // public byte BeginFlag2 { get; set; } = JTNEPackage.BeginFlag;
         /// <summary>
         /// 命令标识 
         /// <see cref="JTNE.Protocol.Enums.JTNEMsgId"/>
         /// </summary>
-        public byte MsgId { get; set; }
+        public JTNEMsgId MsgId { get; set; }
+
         /// <summary>
         /// 应答标志 
         /// <see cref="JTNE.Protocol.Enums.JTNEAskId"/>
         /// </summary>
-        public byte AskId { get; set; }
+        public JTNEAskId AskId { get; set; }
+
         /// <summary>
         /// 车辆识别码
         /// </summary>
         public string VIN { get; set; }
+        
         /// <summary>
         /// 数据加密方式 (默认不加密)
         /// 0x01：数据不加密；0x02：数据经过 RSA 算法加密；0x03:数据经过 AES128 位算法加密；“0xFE”表示异常，“0xFF”表示无效
