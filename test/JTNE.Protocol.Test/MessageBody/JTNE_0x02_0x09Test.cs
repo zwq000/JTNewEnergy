@@ -39,7 +39,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "09020100040102030402000405060708".ToHexBytes();
-            JTNE_0x02_0x09 jTNE_0X02_0X09 = JTNESerializer.Deserialize<JTNE_0x02_0x09>(data);
+            JTNE_0x02_0x09 jTNE_0X02_0X09 = JTNESerializer.Deserialize<JTNE_0x02_0x09>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x09, jTNE_0X02_0X09.TypeCode);
             Assert.Equal(2, jTNE_0X02_0X09.BatteryTemperatureCount);
 

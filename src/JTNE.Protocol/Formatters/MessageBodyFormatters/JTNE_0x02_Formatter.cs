@@ -10,7 +10,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
             int offset = 0, bodyReadSize = 0;
             JTNE_0x02 jTNE_0X02 = new JTNE_0x02 ();
             jTNE_0X02.Values = new List<JTNE_0x02_Body> ();
-            //jTNE_0X02.CusotmValues = new Dictionary<byte, byte[]> ();
+            
             jTNE_0X02.Time = bytes.ReadDateTime6Bytes (ref offset);
             while (offset < bytes.Length) {
                 byte typeCode = bytes.ReadByte (ref offset);
@@ -21,6 +21,9 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
                     jTNE_0X02.Values.Add (bodyData);
                     offset += bodyReadSize;
                 } else if (JTNE_0x02_CustomBody.CustomTypeCodes.TryGetValue (typeCode, out Type jTNE_0x02_CustomBodyImpl)) {
+                    if(jTNE_0X02.CusotmValues ==null){
+                        jTNE_0X02.CusotmValues = new Dictionary<byte, byte[]> ();
+                    }
                     int length = bytes.ReadUInt16 (ref offset);
                     //从类型编码开始取 offset - 1 - 2
                     //1:类型编码
@@ -42,7 +45,7 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
                 foreach (var item in value.Values) {
                     if (JTNE_0x02_Body.TypeCodes.TryGetValue (item.TypeCode, out Type jTNE_0x02_BodyImpl)) {
                         var bodyImplFormatter = JTNEFormatterExtensions.GetFormatter (jTNE_0x02_BodyImpl);
-                        offset = JTNEFormatterResolverExtensions.JTNEDynamicSerialize (bodyImplFormatter, ref bytes, offset, item.TypeCode);
+                        offset = JTNEFormatterResolverExtensions.JTNEDynamicSerialize (bodyImplFormatter, ref bytes, offset, item);
                     }
                 }
             }

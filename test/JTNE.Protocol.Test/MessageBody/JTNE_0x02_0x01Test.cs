@@ -35,7 +35,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "01040507003A00001A0A00640063030602007B0203".ToHexBytes();
-            JTNE_0x02_0x01 jTNE_0X02_0X01 = JTNESerializer.Deserialize<JTNE_0x02_0x01>(data);
+            JTNE_0x02_0x01 jTNE_0X02_0X01 = JTNESerializer.Deserialize<JTNE_0x02_0x01>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x01, jTNE_0X02_0X01.TypeCode);
             Assert.Equal(0x02, jTNE_0X02_0X01.Accelerator);
             Assert.Equal(0x03, jTNE_0X02_0X01.Brakes);

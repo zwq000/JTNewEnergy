@@ -103,7 +103,7 @@ namespace JTNE.Protocol.Benchmark
                 JTNE_0x02_0x05 jTNE_0X02_0X05 = new JTNE_0x02_0x05();
                 jTNE_0X02_0X05.Lat = 1233355;
                 jTNE_0X02_0X05.Lng = 3255555;
-                jTNE_0X02_0X05.PositioStatus = 0x01;
+                jTNE_0X02_0X05.PositioStatus = (PositioStatus) 0x01;
                 jTNE_0X02.Values.Add(jTNE_0X02_0X05);
 
                 JTNE_0x02_0x06 jTNE_0X02_0X06 = new JTNE_0x02_0x06();
@@ -190,7 +190,7 @@ namespace JTNE.Protocol.Benchmark
                 jTNE_0X02_0X09.BatteryTemperatures.Add(batteryTemperature2);
                 jTNE_0X02.Values.Add(jTNE_0X02_0X09);
 
-                jTNEPackage.Bodies = jTNE_0X02;
+                jTNEPackage.Body = jTNE_0X02;
 
                 var hex = JTNESerializer.Serialize(jTNEPackage);
             }

@@ -44,7 +44,7 @@ namespace JTNE.Protocol.Formatters {
                     int bodyReadSize = 0;
                     try {
                         if (package.EncryptMethod == JTNEEncryptMethod.None) {
-                            package.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
+                            package.Body = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
                                 JTNEFormatterExtensions.GetFormatter (jTNEBodiesImplType),
                                 bytes.Slice (offset, package.DataUnitLength),
                                 out bodyReadSize);
@@ -52,7 +52,7 @@ namespace JTNE.Protocol.Formatters {
                             if (JTNEGlobalConfigs.Instance.DataBodiesEncrypt != null) {
                                 var data = JTNEGlobalConfigs.Instance.DataBodiesEncrypt (package.EncryptMethod)
                                     .Decrypt (bytes.Slice (offset, package.DataUnitLength).ToArray ());
-                                package.Bodies = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
+                                package.Body = JTNEFormatterResolverExtensions.JTNEDynamicDeserialize (
                                     JTNEFormatterExtensions.GetFormatter (jTNEBodiesImplType),
                                     data,
                                     out bodyReadSize);
@@ -90,14 +90,14 @@ namespace JTNE.Protocol.Formatters {
             Type jTNEBodiesImplType = JTNEMsgIdFactory.GetBodyTypeByMsgId ((byte) value.MsgId);
             int messageBodyOffset = 0;
             if (jTNEBodiesImplType != null) {
-                if (value.Bodies != null) {
+                if (value.Body != null) {
                     // 8.1.处理数据体
                     // 8.2.判断是否有加密
                     messageBodyOffset = JTNEFormatterResolverExtensions.JTNEDynamicSerialize (
                         JTNEFormatterExtensions.GetFormatter (jTNEBodiesImplType),
                         ref bytes,
                         offset + FixedDataBodyLength,
-                        value.Bodies);
+                        value.Body);
                     if (value.EncryptMethod == JTNEEncryptMethod.None) {
                         // 9.通过tmpOffset反写数据单元长度
                         bytes.WriteUInt16 (tmpOffset, (ushort) (messageBodyOffset - offset - FixedDataBodyLength));

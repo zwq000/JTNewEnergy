@@ -5,18 +5,13 @@ using JTNE.Protocol.Attributes;
 using JTNE.Protocol.Formatters.MessageBodyFormatters;
 using JTNE.Protocol.Metadata;
 
-namespace JTNE.Protocol.MessageBody
-{
+namespace JTNE.Protocol.MessageBody {
     /// <summary>
     /// 车辆位置数据
     /// </summary>
-    [JTNEFormatter(typeof(JTNE_0x02_0x05_Formatter))]
-    public class JTNE_0x02_0x05 : JTNE_0x02_Body
-    {
-        public JTNE_0x02_0x05() : base(JTNE_0x02_0x05)
-        {
-        }
-
+    [JTNEFormatter (typeof (JTNE_0x02_0x05_Formatter))]
+    public class JTNE_0x02_0x05 : JTNE_0x02_Body {
+        public JTNE_0x02_0x05 () : base (JTNE_0x02_0x05) { }
 
         /// <summary>
         /// 定位状态
@@ -25,7 +20,7 @@ namespace JTNE.Protocol.MessageBody
         /// 2位：0：东经；1：西经
         /// 3-7位：保留
         /// </summary>
-        public byte PositioStatus { get; set; }
+        public PositioStatus PositioStatus { get; set; }
         /// <summary>
         /// 经度
         /// 以度位单位的经度值乘以10^6，精确到百万分之一度
@@ -36,5 +31,37 @@ namespace JTNE.Protocol.MessageBody
         /// 以度位单位的纬度值乘以10^6，精确到百万分之一度
         /// </summary>
         public uint Lat { get; set; }
+    }
+
+    [Flags]
+    public enum PositioStatus : byte {
+        /// <summary>
+        /// 有效定位
+        /// </summary>
+        Valid = 0x0,
+        /// <summary>
+        /// 无效定位
+        /// </summary>
+        InValid = 0x1,
+        /// <summary>
+        /// 北纬
+        /// </summary>
+        North = 0x0,
+
+        /// <summary>
+        /// 南纬
+        /// </summary>
+        South = 0x1 << 1,
+
+        /// <summary>
+        /// 东经
+        /// </summary>
+        East = 0x0,
+
+        /// <summary>
+        /// 西经
+        /// </summary>
+        West = 0x1 << 2
+
     }
 }

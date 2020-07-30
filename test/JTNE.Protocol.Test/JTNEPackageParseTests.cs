@@ -25,9 +25,9 @@ namespace JTNE.Protocol.Test {
             var package = JTNESerializer.Deserialize (hexStr.ToHexBytes ());
             Assert.NotNull (package);
             Assert.Equal (JTNEMsgId.UploadIM, package.MsgId);
-            Assert.NotNull (package.Bodies);
-            Assert.IsType<JTNE_0x02> (package.Bodies);
-            var body = (JTNE_0x02) package.Bodies;
+            Assert.NotNull (package.Body);
+            Assert.IsType<JTNE_0x02> (package.Body);
+            var body = (JTNE_0x02) package.Body;
             Assert.NotNull (body.Values);
             Assert.NotEmpty (body.Values);
 
@@ -46,13 +46,13 @@ namespace JTNE.Protocol.Test {
             Assert.Equal (JTNEAskId.CMD, package.AskId);
             Assert.Equal (JTNEMsgId.PlatformLogin, package.MsgId);
             Assert.Equal (41, package.DataUnitLength);
-            Assert.NotNull (package.Bodies);
+            Assert.NotNull (package.Body);
 
-            Assert.IsType<JTNE_0x05> (package.Bodies);
+            Assert.IsType<JTNE_0x05> (package.Body);
 
-            output.WriteLine (Newtonsoft.Json.JsonConvert.SerializeObject (package.Bodies, Formatting.Indented));
+            output.WriteLine (Newtonsoft.Json.JsonConvert.SerializeObject (package.Body, Formatting.Indented));
 
-            var loginbody = (JTNE_0x05) package.Bodies;
+            var loginbody = (JTNE_0x05) package.Body;
             Assert.Equal ("威海广泰空港", loginbody.PlatformUserName);
             Assert.Equal (1, loginbody.LoginNum);
             Assert.Equal (JTNEEncryptMethod.None, loginbody.EncryptMethod);
@@ -78,21 +78,24 @@ namespace JTNE.Protocol.Test {
         /// 00000040: 0000 0500 06fe becb 0255 0059 06ff 01ff  .........U.Y....
         /// 00000050: 0003 02ff 0002 4310 2020 001e 1a         ......C.  ...
         /// </summary>
-        [Fact]
-        public void TestMsg2 () {
-            var data = "232302FE303030303030303030303032303037343101004414071C0F2F2D01020004010000000003E0024300005D020030CDFFFF020101FF27000000002A02550000050006FEBECB0255005906FF01FF000302FF000243102020001E1A";
+        [Theory]
+        //[InlineData("232302FE303030303030303030303032303037343101004414071C0F2F2D01020004010000000003E0024300005D020030FFFF020101FF27000000002A02550000050006FEBECB0255005906FF01FF000302FF000243102020001E1A")]
+        [InlineData("232302FE303030303030303030303032303037343101004314071E0A290C01020401000000000401024300004502000427FFFF020101FF25000000002402510000050006FEBDF70254FF4306FF0AFF000306FF000248112120001ECA")]
+        public void TestMsg2 (string rawmsg) {
             // 00000000: 2323 02fe 3030 3030 3030 3030 3030 3032  ##..000000000002
             // 00000010: 3030 3734 3101 0044 1407 1c0f 2f2d 0102  00741..D..../-..
             // 00000020: 0004 0100 0000 0003 e002 4300 005d 0200  ..........C..]..
             // 00000030: 30cd ffff 0201 01ff 2700 0000 002a 0255  0.......'....*.U
             // 00000040: 0000 0500 06fe becb 0255 0059 06ff 01ff  .........U.Y....
             // 00000050: 0003 02ff 0002 4310 2020 001e 1a         ......C.  ...
-            var package = JTNESerializer.Deserialize (data.ToHexBytes ());
+            var package = JTNESerializer.Deserialize (rawmsg.ToHexBytes ());
             Assert.NotNull (package);
             Assert.Equal (JTNEMsgId.UploadIM, package.MsgId);
-            Assert.NotNull (package.Bodies);
-            var body = (JTNE_0x02) package.Bodies;
+            Assert.NotNull (package.Body);
+            var body = (JTNE_0x02) package.Body;
             Assert.NotEmpty (body.Values);
+            output.WriteLine(JsonConvert.SerializeObject(body,Formatting.Indented));
+
             Assert.Contains<byte> (5, body.Values.Select (p => p.TypeCode));
         }
     }

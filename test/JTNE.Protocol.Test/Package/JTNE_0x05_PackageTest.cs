@@ -19,7 +19,7 @@ namespace JTNE.Protocol.Test.Package {
             jTNE_0X05.LoginNum = 6666;
             jTNE_0X05.PlatformUserName = "SmallChi518";
             jTNE_0X05.PlatformPassword = "1234567890123456789";
-            jTNEPackage.Bodies = jTNE_0X05;
+            jTNEPackage.Body = jTNE_0X05;
             var hex = JTNESerializer.Serialize (jTNEPackage).ToHexString ();
             Assert.Equal ("232305FE31323334353637383900000000000000000100291301171737381A0A536D616C6C43686935313800313233343536373839303132333435363738390001FF", hex);
         }
@@ -31,7 +31,7 @@ namespace JTNE.Protocol.Test.Package {
             Assert.Equal (JTNEAskId.CMD, jTNEPackage.AskId);
             Assert.Equal (JTNEMsgId.PlatformLogin, jTNEPackage.MsgId);
             Assert.Equal ("123456789", jTNEPackage.VIN);
-            JTNE_0x05 jTNE_0X05 = jTNEPackage.Bodies as JTNE_0x05;
+            JTNE_0x05 jTNE_0X05 = jTNEPackage.Body as JTNE_0x05;
             Assert.Equal (DateTime.Parse ("2019-01-23 23:55:56"), jTNE_0X05.LoginTime);
             Assert.Equal (6666, jTNE_0X05.LoginNum);
             Assert.Equal ("SmallChi518", jTNE_0X05.PlatformUserName);

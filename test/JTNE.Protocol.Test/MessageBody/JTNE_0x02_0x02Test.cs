@@ -42,7 +42,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "0202010201004100370300EC0064020302004202360508580065".ToHexBytes();
-            JTNE_0x02_0x02 jTNE_0X02_0X02 = JTNESerializer.Deserialize<JTNE_0x02_0x02>(data);
+            JTNE_0x02_0x02 jTNE_0X02_0X02 = JTNESerializer.Deserialize<JTNE_0x02_0x02>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x02, jTNE_0X02_0X02.TypeCode);
             Assert.Equal(2, jTNE_0X02_0X02.ElectricalCount);
             Metadata.Electrical electrical1 = jTNE_0X02_0X02.Electricals[0];

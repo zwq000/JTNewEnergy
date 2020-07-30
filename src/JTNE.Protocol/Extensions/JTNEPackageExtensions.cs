@@ -22,7 +22,7 @@ namespace JTNE.Protocol.Extensions {
             JTNEPackage jTNEPackage = new JTNEPackage ();
             jTNEPackage.AskId = askId;
             jTNEPackage.MsgId = msgId;
-            jTNEPackage.Bodies = bodies;
+            jTNEPackage.Body = bodies;
             jTNEPackage.VIN = vin;
             return jTNEPackage;
         }
@@ -56,7 +56,7 @@ namespace JTNE.Protocol.Extensions {
             JTNEPackage jTNEPackage = new JTNEPackage ();
             jTNEPackage.AskId = askId;
             jTNEPackage.MsgId = (JTNEMsgId) msgId;
-            jTNEPackage.Bodies = bodies;
+            jTNEPackage.Body = bodies;
             jTNEPackage.VIN = vin;
             return jTNEPackage;
         }

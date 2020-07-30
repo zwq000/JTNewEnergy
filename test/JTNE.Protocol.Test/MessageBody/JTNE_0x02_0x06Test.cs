@@ -33,7 +33,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "061115007B07090008321242113206".ToHexBytes();
-            JTNE_0x02_0x06 jTNE_0X02_0X06 = JTNESerializer.Deserialize<JTNE_0x02_0x06>(data);
+            JTNE_0x02_0x06 jTNE_0X02_0X06 = JTNESerializer.Deserialize<JTNE_0x02_0x06>(data.AsSpan().Slice(1));
             Assert.Equal(0x12, jTNE_0X02_0X06.MaxTempBatteryAssemblyNo);
             Assert.Equal(0x32, jTNE_0X02_0X06.MaxTempProbeBatteryNo);
             Assert.Equal(0x42, jTNE_0X02_0X06.MaxTempProbeBatteryValue);

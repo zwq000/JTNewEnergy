@@ -29,7 +29,7 @@ namespace JTNE.Protocol.Test.Package
             Assert.Equal(JTNEAskId.CMD, jTNEPackage.AskId);
             Assert.Equal(JTNEMsgId.CheckTime, jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
-            Assert.Null(jTNEPackage.Bodies);
+            Assert.Null(jTNEPackage.Body);
         }
     }
 }

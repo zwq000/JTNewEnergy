@@ -39,7 +39,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "07110000159D03000003E8000003E9000003EA03000007D0000007D1000007D20300000BB800000BB900000BBA0300000FA000000FA100000FA2".ToHexBytes();
-            JTNE_0x02_0x07 jTNE_0X02_0X07 = JTNESerializer.Deserialize<JTNE_0x02_0x07>(data);
+            JTNE_0x02_0x07 jTNE_0X02_0X07 = JTNESerializer.Deserialize<JTNE_0x02_0x07>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x07, jTNE_0X02_0X07.TypeCode);
             Assert.Equal(0x11, jTNE_0X02_0X07.AlarmLevel);
             Assert.Equal(3, jTNE_0X02_0X07.AlarmBatteryOthers.Count);

@@ -29,7 +29,7 @@ namespace JTNE.Protocol.Test.Package
                "4567",
                "9870"
             };
-            jTNEPackage.Bodies = jTNE_0X01;
+            jTNEPackage.Body = jTNE_0X01;
             var hex = JTNESerializer.Serialize(jTNEPackage).ToHexString();
             Assert.Equal("232301FE313233343536373839000000000000000001002A130116173738000131323334353637383939383736353433323130300304313233343435363739383730FD", hex);
         }
@@ -43,7 +43,7 @@ namespace JTNE.Protocol.Test.Package
             Assert.Equal(JTNEMsgId.Login, jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
 
-            JTNE_0x01 jTNE_0X01 = jTNEPackage.Bodies as JTNE_0x01;
+            JTNE_0x01 jTNE_0X01 = jTNEPackage.Body as JTNE_0x01;
             Assert.Equal(DateTime.Parse("2019-01-22 23:55:56"), jTNE_0X01.PDATime);
             Assert.Equal(1, jTNE_0X01.LoginNum);
             Assert.Equal(0x04, jTNE_0X01.BatteryLength);
@@ -83,7 +83,7 @@ namespace JTNE.Protocol.Test.Package
                "4567",
                "9870"
             };
-            jTNEPackage.Bodies = jTNE_0X01;
+            jTNEPackage.Body = jTNE_0X01;
             var hex = JTNESerializer.Serialize(jTNEPackage).ToHexString();
             Assert.Equal("232301FE31323334353637383900000000000000000300307C9AAF67FB9408A75FAFC1C87F1E2AECD79DDAB8219016A5DD0911283922805EF450045EA3611C0D5CFBFD8F2581CEED30", hex);
         }
@@ -108,7 +108,7 @@ namespace JTNE.Protocol.Test.Package
             Assert.Equal("123456789", jTNEPackage.VIN);
             Assert.Equal(JTNEEncryptMethod.AES128, jTNEPackage.EncryptMethod);
 
-            JTNE_0x01 jTNE_0X01 = jTNEPackage.Bodies as JTNE_0x01;
+            JTNE_0x01 jTNE_0X01 = jTNEPackage.Body as JTNE_0x01;
             Assert.Equal(DateTime.Parse("2019-01-22 23:55:56"), jTNE_0X01.PDATime);
             Assert.Equal(1, jTNE_0X01.LoginNum);
             Assert.Equal(0x04, jTNE_0X01.BatteryLength);

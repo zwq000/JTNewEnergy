@@ -24,7 +24,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "040100CB0066".ToHexBytes();
-            JTNE_0x02_0x04 jTNE_0X02_0X04 = JTNESerializer.Deserialize<JTNE_0x02_0x04>(data);
+            JTNE_0x02_0x04 jTNE_0X02_0X04 = JTNESerializer.Deserialize<JTNE_0x02_0x04>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x04, jTNE_0X02_0X04.TypeCode);
             Assert.Equal(0x01, jTNE_0X02_0X04.EngineStatus);
             Assert.Equal(102, jTNE_0X02_0X04.FuelRate);

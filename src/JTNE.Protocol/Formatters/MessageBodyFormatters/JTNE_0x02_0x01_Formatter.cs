@@ -22,7 +22,6 @@ namespace JTNE.Protocol.Formatters.MessageBodyFormatters {
             body.Resistance = bytes.ReadUInt16 (ref offset);
             body.Accelerator = bytes.ReadByte (ref offset);
             body.Brakes = bytes.ReadByte (ref offset);
-            bytes.ReadByte (ref offset);
             readSize = offset;
             return body;
         }

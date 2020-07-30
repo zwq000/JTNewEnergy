@@ -20,7 +20,7 @@ namespace JTNE.Protocol.Test.Package
             JTNE_0x04 jTNE_0X04 = new JTNE_0x04();
             jTNE_0X04.LogoutTime = DateTime.Parse("2019-01-23 23:55:56");
             jTNE_0X04.LogoutNum = 1;
-            jTNEPackage.Bodies = jTNE_0X04;
+            jTNEPackage.Body = jTNE_0X04;
             var hex = JTNESerializer.Serialize(jTNEPackage).ToHexString();
             Assert.Equal("232304FE31323334353637383900000000000000000100081301171737380001DE", hex);
         }
@@ -33,7 +33,7 @@ namespace JTNE.Protocol.Test.Package
             Assert.Equal(JTNEAskId.CMD, jTNEPackage.AskId);
             Assert.Equal(JTNEMsgId.Logout, jTNEPackage.MsgId);
             Assert.Equal("123456789", jTNEPackage.VIN);
-            JTNE_0x04 jTNE_0X04 = jTNEPackage.Bodies as JTNE_0x04;
+            JTNE_0x04 jTNE_0X04 = jTNEPackage.Body as JTNE_0x04;
             Assert.Equal(DateTime.Parse("2019-01-23 23:55:56"), jTNE_0X04.LogoutTime);
             Assert.Equal(1, jTNE_0X04.LogoutNum);
         }

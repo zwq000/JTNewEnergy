@@ -49,7 +49,7 @@ namespace JTNE.Protocol
         /// <summary>
         /// 数据体
         /// </summary>
-        public JTNEBodies Bodies { get; set; }
+        public JTNEBodies Body { get; set; }
         
         // /// <summary>
         // /// 采用BCC（异或检验）法，校验范围从命令单元的第一个字节开始，同后一个字节异或，直到校验码前一个字节为止，

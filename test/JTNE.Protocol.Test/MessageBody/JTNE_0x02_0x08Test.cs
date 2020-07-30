@@ -44,7 +44,7 @@ namespace JTNE.Protocol.Test.MessageBody
         public void Test2()
         {
             var data = "0802010002007B0037006F03006F00DE014D03000504D2004200DE0301BC022B029A".ToHexBytes();
-            JTNE_0x02_0x08 jTNE_0X02_0X08 = JTNESerializer.Deserialize<JTNE_0x02_0x08>(data);
+            JTNE_0x02_0x08 jTNE_0X02_0X08 = JTNESerializer.Deserialize<JTNE_0x02_0x08>(data.AsSpan().Slice(1));
             Assert.Equal(JTNE_0x02_Body.JTNE_0x02_0x08, jTNE_0X02_0X08.TypeCode);
             Assert.Equal(2, jTNE_0X02_0X08.BatteryAssemblyCount);
 
